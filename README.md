@@ -16,4 +16,7 @@
 - [X] TypeScript Init and configure
 - [X] Init Prisma
 - [ ] Translate ERD into Prisma code
-
+- [ ] Init JWT Auth 
+- [ ] Init OAuth 
+- [ ] Making middleware 
+- [ ] Making Authentication API
