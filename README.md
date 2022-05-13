@@ -11,9 +11,9 @@
 ## **Todo List**
 
 - [ ] Generate ERD Diagram
-- [ ] Express Initialize
-- [ ] Docker Init
-- [ ] TypeScript Init and configure
-- [ ] Init Prisma
+- [X] Express Initialize
+- [X] Docker Init
+- [X] TypeScript Init and configure
+- [X] Init Prisma
 - [ ] Translate ERD into Prisma code
 
