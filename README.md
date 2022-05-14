@@ -10,12 +10,12 @@
 
 ## **Todo List**
 
-- [ ] Generate ERD Diagram
+- [X] Generate ERD Diagram
 - [X] Express Initialize
 - [X] Docker Init
 - [X] TypeScript Init and configure
 - [X] Init Prisma
-- [ ] Translate ERD into Prisma code
+- [X] Translate ERD into Prisma code
 - [ ] Init JWT Auth 
 - [ ] Init OAuth 
 - [ ] Making middleware 
