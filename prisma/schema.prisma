@@ -2,12 +2,38 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int @default(autoincrement()) @id
+  email           String @unique
+  password        String
+  userDetails     UserDetails?
+}
+
+model UserDetails {
+  id              Int @default(autoincrement()) @id
+  user            User @relation(fields: [userId], references: [id])
+  userId          Int
+  namaLengkap     String
+  tempatLahir     String
+  tanggalLahir    String
+  profilePicture  String
+  jenisKelamin    JenisKelamin
+  daftarAnak      Anak[]
+  historyGizi     HistoryGizi[]
+}
+
+
+enum JenisKelamin {
+  M 
+  F
 }
 
 
