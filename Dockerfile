@@ -10,4 +10,4 @@ EXPOSE 3000
 
 # Command buat ngerun backend 
 # CMD [ "/bin/ash", "-c", "yarn run prisma migrate deploy && yarn run ts-node ./prisma/seed.ts && yarn run dev"]
-# CMD [ "/bin/ash", "-c", "yarn run prisma migrate deploy && yarn run dev"]
+CMD [ "/bin/ash", "-c", "yarn run prisma migrate deploy && yarn run dev"]

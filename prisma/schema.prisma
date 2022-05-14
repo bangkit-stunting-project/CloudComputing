@@ -19,7 +19,7 @@ model User {
   id              Int             @default(autoincrement()) @id
   email           String          @unique
   password        String
-  userDetails     UserDetails
+  userDetails     UserDetails?
 }
 
 model UserDetails {
@@ -35,6 +35,90 @@ model UserDetails {
   historyGizi     HistoryGizi[]
 }
 
+model Anak {
+  id                  Int         @default(autoincrement()) @id
+  namaLengkap         String      
+  tempatLahir         String
+  tanggalLahir        DateTime
+  parentId            Int
+  parent              UserDetails @relation(fields: [parentId], references: [userId])
+  historyGiziHarian   HistoryGizi[]
+  historyStunting     HistoryStunting[]
+}
+
+model HistoryGizi {
+  id                  Int         @default(autoincrement()) @id
+  anakId              Int
+  anak                Anak        @relation(fields: [anakId], references: [id])
+  ibuId               Int
+  ibu                 UserDetails        @relation(fields: [ibuId], references: [id])
+  timestamp           DateTime
+  namaMakanan         String
+  persentaseHabis     Int
+  VitA                Float
+  VitB1               Float
+  VitB2               Float
+  VitB3               Float
+  VitC                Float
+  Energi              Float
+  Protein             Float
+  Lemak               Float
+  Karbohidrat         Float
+  Serat               Float
+  Air                 Float
+  Ca                  Float
+  F                   Float
+  Fe2                 Float
+  Zn2                 Float
+  Ka                  Float
+  Na                  Float
+  Cu                  Float
+}
+
+model HistoryStunting{
+  id                  Int         @default(autoincrement()) @id
+  anakId              Int
+  anak                Anak        @relation(fields: [anakId], references: [id])
+  tinggiBadan         Int
+  timestamp           DateTime
+  result              Boolean
+}
+
+model StandarGizi{
+  id                  Int         @default(autoincrement()) @id
+  awalRentang         Int
+  akhirRentang        Int
+  trisemester         Int
+  satuan              String
+  kelompok            String
+  standarGiziDetail   StandarGiziDetails?
+}
+
+model StandarGiziDetails{
+  id                  Int         @default(autoincrement()) @id
+  standarGiziId       Int
+  standarGizi         StandarGizi @relation(fields: [standarGiziId], references: [id])
+  tinggiBadan         Int
+  beratBadan          Int
+  VitA                Float
+  VitB1               Float
+  VitB2               Float
+  VitB3               Float
+  VitC                Float
+  Energi              Float
+  Protein             Float
+  Lemak               Float
+  Karbohidrat         Float
+  Serat               Float
+  Air                 Float
+  Ca                  Float
+  F                   Float
+  Fe2                 Float
+  Zn2                 Float
+  Ka                  Float
+  Na                  Float
+  Cu                  Float
+}
 
 
 
