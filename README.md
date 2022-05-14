@@ -16,6 +16,9 @@
 - [X] TypeScript Init and configure
 - [X] Init Prisma
 - [X] Translate ERD into Prisma code
+- [ ] Configure Seeder for :
+  - [ ] Default Username and Password for Login
+  - [ ] AKG Tabel based on Kemenkes Standard
 - [ ] Init JWT Auth 
 - [ ] Init OAuth 
 - [ ] Making middleware 
