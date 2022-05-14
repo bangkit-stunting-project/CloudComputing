@@ -10,16 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum JenisKelamin {
+  M 
+  F
+}
+
 model User {
-  id              Int @default(autoincrement()) @id
-  email           String @unique
+  id              Int             @default(autoincrement()) @id
+  email           String          @unique
   password        String
-  userDetails     UserDetails?
+  userDetails     UserDetails
 }
 
 model UserDetails {
-  id              Int @default(autoincrement()) @id
-  user            User @relation(fields: [userId], references: [id])
+  id              Int         @default(autoincrement()) @id
+  user            User        @relation(fields: [userId], references: [id])
   userId          Int
   namaLengkap     String
   tempatLahir     String
@@ -31,10 +36,6 @@ model UserDetails {
 }
 
 
-enum JenisKelamin {
-  M 
-  F
-}
 
 
 
