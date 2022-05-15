@@ -22,4 +22,11 @@
 - [ ] Init JWT Auth 
 - [ ] Init OAuth 
 - [ ] Making middleware 
+  - [ ] JWT verification time handling -> Reject if Expired to Login Page 
 - [ ] Making Authentication API
+  - [ ] Login API with token -> auth.ts 
+  - [ ] Change Password API -> auth.ts
+- [ ] User API 
+  - [ ] Register API -> user.ts
+  - [ ] Return detail profile 
+- [ ] Adding ERD for Nutrition each classes in ERD and Prisma
