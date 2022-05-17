@@ -18,7 +18,6 @@ async function name(params:type) {
                     tempatLahir : 'Jakarta',
                     tanggalLahir : new Date(`2022-12-12`),
                     
-
                 }
             }
         },

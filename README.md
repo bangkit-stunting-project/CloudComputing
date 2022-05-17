@@ -19,14 +19,14 @@
 - [ ] Configure Seeder for :
   - [ ] Default Username and Password for Login
   - [ ] AKG Tabel based on Kemenkes Standard
-- [ ] Init JWT Auth 
-- [ ] Init OAuth 
-- [ ] Making middleware 
-  - [ ] JWT verification time handling -> Reject if Expired to Login Page 
+- [ ] Init JWT Auth
+- [ ] Init OAuth
+- [ ] Making middleware
+  - [ ] JWT verification time handling -> Reject if Expired to Login Page
 - [ ] Making Authentication API
-  - [ ] Login API with token -> auth.ts 
+  - [ ] Login API with token -> auth.ts
   - [ ] Change Password API -> auth.ts
-- [ ] User API 
+- [ ] User API
   - [ ] Register API -> user.ts
-  - [ ] Return detail profile 
+  - [ ] Return detail profile
 - [ ] Adding ERD for Nutrition each classes in ERD and Prisma
