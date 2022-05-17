@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node src/server.ts",
-    "dev:server": "yarn run nodemon src/server"
+    "dev:server": "yarn run nodemon src/server",
+    "seed" : "prisma db push && prisma db seed"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

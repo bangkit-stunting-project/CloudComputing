@@ -8,6 +8,18 @@
 4. If Access Denied occurs add `sudo` before command up and build
 5. If it has been successfully deployed, the container will run and be visible on the Docker Desktop or can be checked using `docker-compose ps`
 
+## **Usefull CLI Command for this project** 
+- `yarn prisma studio` -> for showing database like phpmyadmin 
+- `yarn prisma migrate reset` -> Reseting all table and inserted database to 0 
+- `yarn prisma migrate dev --name [migrate name]` -> commiting migrate database to migrate history 
+- `yarn prisma migrate deploy` -> deploying latest migrate to database schema 
+- `yarn db push` -> pushing changes in Schema to database 
+- `yarn db seed` -> running seeder 
+- `yarn run seed` -> Pushing changes in shcema and push seeder to database 
+- `yarn run dev` -> starting server 
+- `yarn run dev:server` -> Starting server with nodemon. So every changes will restart the server. Best for deploying when deveolpment begun
+
+  
 ## **Todo List**
 
 - [X] Generate ERD Diagram
@@ -17,10 +29,9 @@
 - [X] Init Prisma
 - [X] Translate ERD into Prisma code
 - [ ] Configure Seeder for :
-  - [ ] Default Username and Password for Login
+  - [X] Default Username and Password for Login
   - [ ] AKG Tabel based on Kemenkes Standard
 - [ ] Init JWT Auth
-- [ ] Init OAuth
 - [ ] Making middleware
   - [ ] JWT verification time handling -> Reject if Expired to Login Page
 - [ ] Making Authentication API

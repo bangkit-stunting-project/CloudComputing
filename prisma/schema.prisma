@@ -29,7 +29,7 @@ model UserDetails {
   namaLengkap     String
   tempatLahir     String
   tanggalLahir    DateTime
-  profilePicture  String
+  profilePicture  String?
   jenisKelamin    JenisKelamin
   daftarAnak      Anak[]
   historyGizi     HistoryGizi[]
