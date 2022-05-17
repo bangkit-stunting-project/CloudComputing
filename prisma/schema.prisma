@@ -88,8 +88,8 @@ model StandarGizi{
   id                  Int         @default(autoincrement()) @id
   awalRentang         Int?
   akhirRentang        Int?
-  trisemester         Int?
-  satuan              String
+  trimester           Int?
+  satuan              String?
   kelompok            String
   standarGiziDetail   StandarGiziDetails?
 }

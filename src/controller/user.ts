@@ -9,7 +9,7 @@ export const register = async (req: Request, res : Response) => {
     prisma.user.create({
         data: {
             email : data.email,
-            password : passwordHashed
+            password : passwordHashed,
         }
     })
     .then(user => {
