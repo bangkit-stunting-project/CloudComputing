@@ -86,8 +86,8 @@ model HistoryStunting{
 
 model StandarGizi{
   id                  Int         @default(autoincrement()) @id
-  awalRentang         Int
-  akhirRentang        Int
+  awalRentang         Int?
+  akhirRentang        Int?
   trisemester         Int?
   satuan              String
   kelompok            String
