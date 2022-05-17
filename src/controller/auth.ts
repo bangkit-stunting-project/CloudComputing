@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken'
 import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
-import Bcrypt from 'bcrypt'
+import Bcrypt, {genSalt, hash} from 'bcrypt'
 import { JWT_KEY, TOKEN_VALID_TIME } from '../constant' 
 
 const prisma = new PrismaClient()
@@ -43,4 +43,9 @@ export const login = async (req: Request, res: Response) => {
         }
     })
     .catch (err => console.log(err))
+}
+
+export async function decrypt(passwordPlain : string) : Promise<string> {
+    const salt = await genSalt(10)
+    return hash(passwordPlain, salt)
 }

@@ -33,11 +33,11 @@
   - [ ] AKG Tabel based on Kemenkes Standard
 - [X] Init JWT Auth
 - [ ] Making middleware
-  - [ ] JWT verification time handling -> Reject if Expired to Login Page
+  - [X] JWT verification time handling -> Reject if Expired to Login Page
 - [ ] Making Authentication API
   - [X] Login API with token -> auth.ts
   - [ ] Change Password API -> auth.ts
 - [ ] User API
-  - [ ] Register API -> user.ts
+  - [X] Register API -> user.ts
   - [ ] Return detail profile
 - [ ] Adding ERD for Nutrition each classes in ERD and Prisma
