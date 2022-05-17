@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { genSaltSync, hashSync } from 'bcrypt'
 import adminList from './data/user'
+import standardGiziList from './data/standardGizi'
 
 const prisma = new PrismaClient()
 
@@ -12,6 +13,12 @@ async function main () {
         })
     }
     console.log ('Admin sudah dibuat')
+
+    for (const data of standardGiziList) {
+        await prisma.standarGizi.create({
+            data : data
+        })
+    }
 }
 
 main ()

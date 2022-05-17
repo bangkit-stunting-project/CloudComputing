@@ -11,7 +11,7 @@
 ## **Usefull CLI Command for this project** 
 - `yarn prisma studio` -> for showing database like phpmyadmin 
 - `yarn prisma migrate reset` -> Reseting all table and inserted database to 0 
-- `yarn prisma migrate dev --name [migrate name]` -> commiting migrate database to migrate history 
+- `yarn prisma migrate dev` -> commiting migrate database to migrate history 
 - `yarn prisma migrate deploy` -> deploying latest migrate to database schema 
 - `yarn db push` -> pushing changes in Schema to database 
 - `yarn db seed` -> running seeder 
