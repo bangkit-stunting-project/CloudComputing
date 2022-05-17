@@ -3,7 +3,7 @@ import { body, validationResult } from 'express-validator'
 
 export const validator = (req : Request, res : Response, next: NextFunction) => {
     const error = validationResult (req)
-    if (!error.isEmpty) {
+    if (!error.isEmpty()) {
         res.json({
             error : error.array().map(validationError => validationError.msg)
         })

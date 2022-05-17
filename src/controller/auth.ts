@@ -8,7 +8,7 @@ const prisma = new PrismaClient()
 
 export const login = async (req: Request, res: Response) => {
     let data = req.body 
-    console.log(data.email)
+    // res.send({ data : data})
     prisma.user.findFirst({
         where : { 
             email: data.email

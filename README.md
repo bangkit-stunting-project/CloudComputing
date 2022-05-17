@@ -31,11 +31,11 @@
 - [ ] Configure Seeder for :
   - [X] Default Username and Password for Login
   - [ ] AKG Tabel based on Kemenkes Standard
-- [ ] Init JWT Auth
+- [X] Init JWT Auth
 - [ ] Making middleware
   - [ ] JWT verification time handling -> Reject if Expired to Login Page
 - [ ] Making Authentication API
-  - [ ] Login API with token -> auth.ts
+  - [X] Login API with token -> auth.ts
   - [ ] Change Password API -> auth.ts
 - [ ] User API
   - [ ] Register API -> user.ts
