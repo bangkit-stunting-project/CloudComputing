@@ -23,8 +23,8 @@ model User {
 }
 
 model UserDetails {
-  id              Int         @default(autoincrement()) @id
-  user            User        @relation(fields: [userId], references: [id])
+  id              Int             @default(autoincrement()) @id
+  user            User            @relation(fields: [userId], references: [id])
   userId          Int
   namaLengkap     String
   tempatLahir     String
