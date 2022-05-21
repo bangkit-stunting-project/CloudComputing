@@ -28,19 +28,20 @@
 - [X] TypeScript Init and configure
 - [X] Init Prisma
 - [X] Translate ERD into Prisma code
+- [ ] Testing Multer
 - [ ] Configure Seeder for :
   - [X] Default Username and Password for Login
-  - [ ] AKG Tabel based on Kemenkes Standard
+  - [X] AKG Tabel based on Kemenkes Standard
 - [X] Init JWT Auth
-- [ ] Making middleware
+- [X] Making middleware for JWT 
   - [X] JWT verification time handling -> Reject if Expired to Login Page
 - [ ] Making Authentication API
   - [X] Login API with token -> auth.ts
   - [ ] Change Password API -> auth.ts
-- [ ] User API
+- [X] User API
   - [X] Register API -> user.ts
-  - [ ] Return detail profile
-  - [ ] Update Profile Details
+  - [X] Return detail profile
+  - [X] Update Profile Details
 - [ ] Anak API
   - [ ] Create Anak
   - [ ] Update Anak

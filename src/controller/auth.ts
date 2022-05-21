@@ -3,6 +3,8 @@ import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 import Bcrypt, {genSalt, hash} from 'bcrypt'
 import { JWT_KEY, TOKEN_VALID_TIME } from '../constant' 
+import exp from 'constants'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 
 const prisma = new PrismaClient()
 
@@ -43,6 +45,31 @@ export const login = async (req: Request, res: Response) => {
         }
     })
     .catch (err => console.log(err))
+}
+
+export const changePassword = async (req: Request, res: Response) => {
+    const { userId } = req.params
+    const data = req.body 
+    await prisma.user.findFirst({
+        where : {
+            id : parseInt(userId)
+        }
+    })
+    .then(user => {
+        Bcrypt.compare(data.password, user?.password)
+
+        prisma.user.update({
+            where : {id: user?.id},
+            data : {
+                password :
+            }
+        })
+    })
+    .catch(error => {
+        if (error instanceof PrismaClientKnownRequestError) {
+            if (error.code = '')
+        }
+    })
 }
 
 export async function decrypt(passwordPlain : string) : Promise<string> {
