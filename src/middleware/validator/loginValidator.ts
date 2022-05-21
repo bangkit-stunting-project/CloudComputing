@@ -14,3 +14,26 @@ export const loginValidator = [
     ],
     validator
 ]
+
+export const changePasswordValidator = [
+    [
+        check('password')
+            .notEmpty()
+            .withMessage('Pasword sekarang tidak boleh kosong'),
+        check('newPassword')
+            .notEmpty()
+            .withMessage('Password baru tidak boleh kosong')
+            .isLength({min : 8})
+            .withMessage ('Pankang password harus lebih dari 8 karakter'),
+        check('confirmNewPassword')
+            .notEmpty()
+            .withMessage('Konfirmasi Password Baru tidak boleh kosong')
+            .custom(async (confirmPassword, {req}) => {
+                const password = req.body.password
+                if (password !== confirmPassword) {
+                    throw new Error('Konfirmasi Password Baru harus sama!')
+                }
+            }),
+    ],
+    validator
+]

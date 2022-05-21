@@ -37,7 +37,7 @@
   - [X] JWT verification time handling -> Reject if Expired to Login Page
 - [ ] Making Authentication API
   - [X] Login API with token -> auth.ts
-  - [ ] Change Password API -> auth.ts
+  - [X] Change Password API -> auth.ts
 - [X] User API
   - [X] Register API -> user.ts
   - [X] Return detail profile

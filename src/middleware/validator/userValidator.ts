@@ -65,7 +65,7 @@ export const updateUserValidator = [
     validator
 ]
 
-export const getUserDetail = [
+export const getUserDetailValidator = [
     [
         check('userId')
             .notEmpty()

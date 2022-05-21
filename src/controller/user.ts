@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
-import { decrypt } from './auth'
+import { decrypt, getId } from './auth'
 const prisma = new PrismaClient()
 
 // Register 
@@ -31,10 +31,12 @@ export const register = async (req: Request, res : Response) => {
 // Read Detail Profile 
 export const userDetail = async (req: Request, res: Response) => {
     const data = req.body
-    const { userId } = req.params
+    const token = req.headers['auth'] as string
+    const userId = getId(token)
+
     await prisma.userDetails.findUnique({
         where: {
-            userId : userId
+            userId : parseInt(userId)
         }
     })
     .then(user => {
@@ -49,10 +51,12 @@ export const userDetail = async (req: Request, res: Response) => {
 // Update User Details
 export const updateUserDetail = async (req : Request, res : Response) => {
     const data = req.body 
-    const { userId } = req.params
+    const token = req.headers['auth'] as string
+    const userId = getId(token)
+    
     await prisma.userDetails.update({
         where : {
-            userId : userId
+            userId : parseInt(userId)
         },
         data : {
             jenisKelamin : data?.jenisKelamin,
