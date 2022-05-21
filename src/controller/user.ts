@@ -4,12 +4,20 @@ import { decrypt } from './auth'
 const prisma = new PrismaClient()
 
 export const register = async (req: Request, res : Response) => {
-    const data = req.body as Prisma.UserCreateInput
+    const data = req.body 
     const passwordHashed = await decrypt(data.password)
     prisma.user.create({
         data: {
             email : data.email,
             password : passwordHashed,
+            userDetails : {
+                create : {
+                    jenisKelamin : data.jenisKelamin,
+                    namaLengkap : data.namaLengkap,
+                    tanggalLahir: new Date (data.tanggalLahir),
+                    tempatLahir : data.tempatLahir,
+                }
+            }
         }
     })
     .then(user => {

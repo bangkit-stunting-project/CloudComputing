@@ -40,4 +40,27 @@
 - [ ] User API
   - [X] Register API -> user.ts
   - [ ] Return detail profile
+  - [ ] Update Profile Details
+- [ ] Anak API
+  - [ ] Create Anak
+  - [ ] Update Anak
+  - [ ] Delete Anak 
+  - [ ] Read Daftar Anak 
+  - [ ] Read Anak Detail by Id
+- [ ] History Stunting 
+  - [ ] Input Data with OpenCV JS 
+  - [ ] Input Data Manual 
+  - [ ] Delete History
+  - [ ] Read History Stunting All
+  - [ ] Read History Stunting by Date
+- [ ] History Gizi 
+  - [ ] Input History Gizi with TFLite Model = input Picture 
+  - [ ] Read History Gizi All 
+  - [ ] Read History Gizi by Date 
+  - [ ] Delete Histery Gizi by Id 
+- [ ] Standard Gizi 
+  - [ ] Read Standard Gizi by Umur 
+  - [ ] Create Standard Gizi (Not include in app just for debugging purpose, in case needed in future)
+  - [ ] Delete Standard Gizi (Not include in app just for debugging purpose, in case needed in future)
+  - [ ] Update Standard Gizi (Not Include in app just for debugging purpose, in case needed in future)
 - [ ] Adding ERD for Nutrition each classes in ERD and Prisma
