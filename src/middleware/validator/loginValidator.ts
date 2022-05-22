@@ -28,9 +28,9 @@ export const changePasswordValidator = [
         check('confirmNewPassword')
             .notEmpty()
             .withMessage('Konfirmasi Password Baru tidak boleh kosong')
-            .custom(async (confirmPassword, {req}) => {
-                const password = req.body.password
-                if (password !== confirmPassword) {
+            .custom(async (confirmNewPassword, {req}) => {
+                const password = req.body.newPassword
+                if (password !== confirmNewPassword) {
                     throw new Error('Konfirmasi Password Baru harus sama!')
                 }
             }),

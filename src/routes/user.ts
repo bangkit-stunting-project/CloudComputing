@@ -14,7 +14,7 @@ userRoute
 userRoute
     .route('/')
         .patch(checkToken, ...updateUserValidator, updateUserDetail)
-        .get(checkToken, ...getUserDetailValidator, userDetail)
+        .get(checkToken, userDetail)
 
 userRoute
     .route('/auth')

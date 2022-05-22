@@ -31,12 +31,13 @@ export const registerValidator = [
         check('namaLengkap')
             .notEmpty()
             .withMessage('Nama Lengkap tidak boleh kosong')
-            .isAlpha()
-            .withMessage('Nama Lengkap hanya boleh terdiri dari huruf'),
-        check('Tempat Lahir')
+            .not()
+                .isAlpha()
+                .withMessage('Nama Lengkap hanya boleh terdiri dari huruf'),
+        check('tempatLahir')
             .notEmpty()
             .withMessage('Tempat Lahir tidak boleh kosong'),
-        check('Tanggal Lahir')
+        check('tanggalLahir')
             .notEmpty()
             .withMessage('Tanggal Lahir tidak boleh kosong')
             .isDate()
@@ -48,17 +49,19 @@ export const registerValidator = [
 export const updateUserValidator = [
     [
     check('userId')
-        .notEmpty()
-        .withMessage('userId tidak boleh kosong')
+        .optional()
         .isInt()
         .withMessage('User ID tidak valid silahkxan input ulang'),
-    check('jenisKelamin')
+        check('jenisKelamin')
+        .optional()
         .isIn(Object.values(JenisKelamin))
         .withMessage('Jenis Kelamin tidak Valid'),
-    check('namaLengkap')
+        check('namaLengkap')
+        .optional()
         .isAlpha()
         .withMessage('Nama Lengkap hanya boleh terdiri dari huruf'),
-    check('Tanggal Lahir')
+        check('Tanggal Lahir')
+        .optional()
         .isDate()
         .withMessage('Tanggal Lahir tidak valid silahkan input ulang')
     ],

@@ -3,7 +3,7 @@ import { JWT_KEY } from '../../constant'
 import * as jwt from 'jsonwebtoken'
 
 export const checkToken = (req : Request, res: Response, next : NextFunction) => {
-    const token = <string>req.headers['auth']
+    const token = req.headers['auth'] as string || req.headers.authorization as string
 
     if (token == undefined) {
         res.status(400).send ({

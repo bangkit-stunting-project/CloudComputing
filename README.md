@@ -65,3 +65,7 @@
   - [ ] Delete Standard Gizi (Not include in app just for debugging purpose, in case needed in future)
   - [ ] Update Standard Gizi (Not Include in app just for debugging purpose, in case needed in future)
 - [ ] Adding ERD for Nutrition each classes in ERD and Prisma
+
+## **Postman Docemntation** 
+
+<https://www.postman.com/avei20/workspace/project-anya/collection/13201462-a0cb52fe-0a1b-47d4-8eba-886ccb9d95eb?action=share&creator=13201462&ctx=documentation>

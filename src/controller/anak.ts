@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { getId } from './auth'
-import { connect } from 'http2'
 
 const prisma = new PrismaClient()
 
@@ -12,21 +11,27 @@ export const createAnak = (req : Request, res: Response) => {
     const userId = getId(token)
     const data = req.body as Prisma.AnakCreateInput
 
-    prisma.user.findUnique({
-        where : { id : userId}
+    prisma.userDetails.update({
+        where : {
+            userId : userId as number
+        },
+        data : {
+            daftarAnak : {
+                create : {
+                    namaLengkap : data.namaLengkap,
+                    tanggalLahir : new Date(data.tanggalLahir),
+                    tempatLahir : data.tempatLahir
+                }
+            }
+        }
     })
-    .then( parent => {
-        prisma.anak.create({
-            select : {
-                
-            }
-            data :{
-                namaLengkap : data.namaLengkap,
-                tanggalLahir : new Date (data.tanggalLahir),
-                tempatLahir : data.tempatLahir,
-                parent :
-            }
-        })
+    .then(userDetail => {
+        res.send({ message : `${data.namaLengkap} telah berhasil di input`})
+    })
+    .catch(error => {
+        res.send({ error : error })
+        if (error instanceof PrismaClientKnownRequestError){
+        }
     })
 }
 // Update Anak 

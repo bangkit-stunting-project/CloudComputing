@@ -6,6 +6,11 @@ import { JWT_KEY, TOKEN_VALID_TIME } from '../constant'
 
 const prisma = new PrismaClient()
 
+interface TOKENData {
+    id : number;
+    email : String
+}
+
 export const login = async (req: Request, res: Response) => {
     let data = req.body 
     // res.send({ data : data})
@@ -51,7 +56,7 @@ export const changePassword = async (req: Request, res: Response) => {
     const data = req.body 
     prisma.user.findFirst({
         where : {
-            id : parseInt(userId)
+            id : userId as number
         }
     }).then(user => {
         if (user === null) {
@@ -64,7 +69,7 @@ export const changePassword = async (req: Request, res: Response) => {
                 if (isValid) {
                     prisma.user.update({
                         where : {
-                            id : userId
+                            id : userId as number
                         },
                         data :{
                             password : await decrypt(data.newPassword)
@@ -96,7 +101,7 @@ export async function decrypt(passwordPlain : string) : Promise<string> {
 }
 
 export const getId = (token : string) => {
-    const decoded = jwt.decode(token, {complete : true})
-    const userId = decoded?.payload.id
+    const decoded = jwt.decode(token , { complete : true} )
+    const userId = ( decoded?.payload as TOKENData).id
     return userId
 }

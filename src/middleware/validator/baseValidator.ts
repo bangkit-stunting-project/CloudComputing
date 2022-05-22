@@ -5,7 +5,7 @@ export const validator = (req : Request, res : Response, next: NextFunction) => 
     const error = validationResult (req)
     if (!error.isEmpty()) {
         res.json({
-            error : error.array().map(validationError => validationError.msg)
+            input_error : error.array().map(validationError => validationError.msg)
         })
         return
     }

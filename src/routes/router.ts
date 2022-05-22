@@ -1,4 +1,6 @@
 import { Request, Response, Router } from "express";
+import { decodeToken } from "../controller/testing";
+import anakRouter from "./anak";
 import loginRoute from "./login";
 import userRoute from "./user";
 
@@ -6,6 +8,10 @@ const router = Router()
 
 router.use('/login', loginRoute)
 router.use('/user', userRoute)
+router.use('/anak', anakRouter)
+
+router
+    .get('/testing', decodeToken)
 
 router
     .get('/', (req: Request, res: Response) : void => {

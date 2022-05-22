@@ -23,7 +23,7 @@ export const register = async (req: Request, res : Response) => {
     })
     .then(user => {
         res.status(400).send({
-            message : `${user.email} telah berhasil dibuat`
+            message : `${user.email} telah berhasil dibuat. Silahkan Login untuk mendapatkan Token.`
         })
     })
 }
@@ -36,7 +36,7 @@ export const userDetail = async (req: Request, res: Response) => {
 
     await prisma.userDetails.findUnique({
         where: {
-            userId : parseInt(userId)
+            userId : userId as number
         }
     })
     .then(user => {
@@ -53,15 +53,15 @@ export const updateUserDetail = async (req : Request, res : Response) => {
     const data = req.body 
     const token = req.headers['auth'] as string
     const userId = getId(token)
-    
+
     await prisma.userDetails.update({
         where : {
-            userId : parseInt(userId)
+            userId : userId as number
         },
         data : {
             jenisKelamin : data?.jenisKelamin,
             namaLengkap : data?.namaLengkap,
-            tanggalLahir : new Date(data?.tanggalLahir),
+            tanggalLahir : data?.tanggalLahir as Date,
             tempatLahir : data?.tempatLahir            
         }
     }).then (userDetails => {
