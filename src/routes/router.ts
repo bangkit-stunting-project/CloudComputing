@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { decodeToken } from "../controller/testing";
+import { decodeToken, testUploadImage, uploader } from "../controller/testing";
 import anakRouter from "./anak";
 import loginRoute from "./login";
 import userRoute from "./user";
@@ -12,6 +12,7 @@ router.use('/anak', anakRouter)
 
 router
     .get('/testing', decodeToken)
+    .post('/testing', uploader.array("files"), testUploadImage)
 
 router
     .get('/', (req: Request, res: Response) : void => {
@@ -21,6 +22,7 @@ router
             }
         )
     })
+    
 
 
 

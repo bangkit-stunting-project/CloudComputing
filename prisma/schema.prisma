@@ -120,6 +120,28 @@ model StandarGiziDetails{
   Cu                  Float
 }
 
+model GiziMakanan {
+  id                  Int         @default(autoincrement()) @id
+  namaMakanan         String 
+  VitA                Float
+  VitB1               Float
+  VitB2               Float
+  VitB3               Float
+  VitC                Float
+  Energi              Float
+  Protein             Float
+  Lemak               Float
+  Karbohidrat         Float
+  Serat               Float
+  Air                 Float
+  Ca                  Float
+  F                   Float
+  Fe2                 Float
+  Zn2                 Float
+  Ka                  Float
+  Na                  Float
+  Cu                  Float
+}
 
 
 
