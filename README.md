@@ -30,7 +30,7 @@
 - [X] Translate ERD into Prisma code
 - [ ] Adding tabel Gizi Makanan based on TKPI Dataset
   - [ ] Making Seeder for tabel Gizi
-- [ ] Testing Multer
+- [X] Testing Multer
 - [ ] Configure Seeder for :
   - [X] Default Username and Password for Login
   - [X] AKG Tabel based on Kemenkes Standard

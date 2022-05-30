@@ -1,6 +1,7 @@
 import {check} from 'express-validator'
 import { validator } from './baseValidator'
 import { JenisKelamin } from '@prisma/client'
+import * as fs from 'fs'
 
 export const registerValidator = [
     [
@@ -75,6 +76,25 @@ export const getUserDetailValidator = [
             .withMessage('User ID tidak boleh kosong')
             .isInt()
             .withMessage('User ID tidak valid silahkan input ulang')
+    ],
+    validator
+]
+
+export const uploadPPValidator = [
+    [
+        check('profilePicture')
+            .custom((value, {req}) => {
+                // console.log(req.file)
+                if (req.file.mimetype === 'image/png' || req.file?.mimetype === 'image/jpg' || req.file?.mimetype == 'image/jpeg') {
+                    // console.log('tembus')
+                    return '.jpg' || '.jpeg' || '.png'
+                }
+                else {
+                    fs.unlinkSync('./'+req.file.path)
+                    return false
+                }
+            })
+            .withMessage('Format File Tidak Valid!')
     ],
     validator
 ]

@@ -1,7 +1,38 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { decrypt, getId } from './auth'
+import multer from 'multer'
+import * as fs from 'fs'
+
+import path from 'path'
+import { getUserDetailValidator } from '../middleware/validator/userValidator'
+import { runInNewContext } from 'vm'
 const prisma = new PrismaClient()
+
+// Profile Photo Storage 
+const profileStorage = multer.diskStorage({
+    destination : (req, file, cb) => {
+        cb(null, './storage/profile-picture')
+    },
+    filename : async (req, file, cb) => {
+        const token = req.headers['auth'] as string
+        const userId = getId(token)
+        const userDetail = await prisma.userDetails.findFirst({
+            where : { userId : userId }
+        })
+        const splitting = file.originalname.split('.')
+        const length = splitting.length
+        console.log()
+        cb(null, userId + '_' + userDetail?.tempatLahir + '.' + splitting[length-1])
+    }
+})
+
+export const profileUploader = multer({
+    storage : profileStorage,
+    limits : {
+        fileSize : 10000
+    }
+})
 
 // Register 
 export const register = async (req: Request, res : Response) => {
@@ -33,6 +64,9 @@ export const userDetail = async (req: Request, res: Response) => {
     const data = req.body
     const token = req.headers['auth'] as string
     const userId = getId(token)
+    const option = {
+        root : path.join(__dirname)
+    }
 
     await prisma.userDetails.findUnique({
         where: {
@@ -44,9 +78,35 @@ export const userDetail = async (req: Request, res: Response) => {
             res.status(404).send ({ error : 'Not Found!'})
             return
         }
+        // if(user?.profilePicture) {
+        //     res.sendFile(user.profilePicture, option)
+        // }
         res.send({ userDetail : user })
     })
 }
+
+export const getProfilePicture = async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers['auth'] as string
+    const userId = getId(token)
+    var option = {
+        root : path.join(__dirname)
+    }
+    const userDetails = await prisma.userDetails.findUnique ({
+        where : {userId : userId}
+    })
+
+    if (userDetails?.profilePicture) {
+        console.log('kirim pap dulu')
+        res.sendFile(userDetails.profilePicture, option)
+        return next()
+    }
+    else {
+        console.log('ga ada pap nich')
+        return next()
+    } 
+
+}
+
 
 // Update User Details
 export const updateUserDetail = async (req : Request, res : Response) => {
@@ -73,5 +133,31 @@ export const updateUserDetail = async (req : Request, res : Response) => {
                 res.status(404).send({ message : 'Not Found!'})
             }
         }
+    })
+}
+
+// Upload Profile Picture 
+export const uploadPP = async (req: Request, res: Response) => {
+    const path = req.file?.path
+    const token = req.headers['auth'] as string
+    const userId = getId(token)
+
+    // Cek Profile nya ada engga 
+    const userDetail = await prisma.userDetails.findUnique({
+        where : { userId : userId }
+    })
+
+    if (userDetail?.profilePicture) {
+        // console .log('ada data lama')
+        fs.unlinkSync('./' + userDetail?.profilePicture)
+    }
+
+    await prisma.userDetails.update({
+        where : { userId :userId},
+        data : {
+            profilePicture : path
+        }
+    }).then (getUserDetail => {
+        res.send({ message : 'Upload Foto Profil Berhasil!'}) 
     })
 }

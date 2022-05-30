@@ -20,7 +20,7 @@ export const login = async (req: Request, res: Response) => {
         }
     })
     .then (user => {
-        if (user === null) {
+        if (user == null) {
             res.status(404).send({
                 error : "Username / Password Salah!"
             })
@@ -36,6 +36,9 @@ export const login = async (req: Request, res: Response) => {
                     res.send({
                         token : token
                     })
+                }
+                else {
+                    res.send({ message : 'Username / Password Salah!'})
                 }
             })
             .catch (err => {

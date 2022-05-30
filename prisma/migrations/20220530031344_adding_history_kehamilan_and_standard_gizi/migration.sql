@@ -1,0 +1,39 @@
+-- CreateTable
+CREATE TABLE "GiziMakanan" (
+    "id" SERIAL NOT NULL,
+    "namaMakanan" TEXT NOT NULL,
+    "VitA" DOUBLE PRECISION NOT NULL,
+    "VitB1" DOUBLE PRECISION NOT NULL,
+    "VitB2" DOUBLE PRECISION NOT NULL,
+    "VitB3" DOUBLE PRECISION NOT NULL,
+    "VitC" DOUBLE PRECISION NOT NULL,
+    "Energi" DOUBLE PRECISION NOT NULL,
+    "Protein" DOUBLE PRECISION NOT NULL,
+    "Lemak" DOUBLE PRECISION NOT NULL,
+    "Karbohidrat" DOUBLE PRECISION NOT NULL,
+    "Serat" DOUBLE PRECISION NOT NULL,
+    "Air" DOUBLE PRECISION NOT NULL,
+    "Ca" DOUBLE PRECISION NOT NULL,
+    "F" DOUBLE PRECISION NOT NULL,
+    "Fe2" DOUBLE PRECISION NOT NULL,
+    "Zn2" DOUBLE PRECISION NOT NULL,
+    "Ka" DOUBLE PRECISION NOT NULL,
+    "Na" DOUBLE PRECISION NOT NULL,
+    "Cu" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "GiziMakanan_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "HistoryKehamilan" (
+    "id" SERIAL NOT NULL,
+    "userDetailsId" INTEGER NOT NULL,
+    "tanggalHamil" TIMESTAMP(3) NOT NULL,
+    "tanggalKelahiran" TIMESTAMP(3) NOT NULL,
+    "lahir" BOOLEAN NOT NULL,
+
+    CONSTRAINT "HistoryKehamilan_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "HistoryKehamilan" ADD CONSTRAINT "HistoryKehamilan_userDetailsId_fkey" FOREIGN KEY ("userDetailsId") REFERENCES "UserDetails"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -12,7 +12,7 @@ router.use('/anak', anakRouter)
 
 router
     .get('/testing', decodeToken)
-    .post('/testing', uploader.array("files"), testUploadImage)
+    .post('/testing', uploader.single("files"), testUploadImage)
 
 router
     .get('/', (req: Request, res: Response) : void => {

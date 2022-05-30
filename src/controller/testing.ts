@@ -5,9 +5,9 @@ import path from 'path';
 
 export const uploadStorage = multer.diskStorage({
     destination : (req:Request, file, cb) => {
-        cb(null, '../../storage/testing')
+        cb(null, './storage/testing')
     },
-    filename : (req :Request, file:Express.Multer.File, cb) => {
+    filename : (req :Request, file , cb) => {
         cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname))
     }
 })
@@ -38,7 +38,7 @@ export const decodeToken = ( req: Request, res:Response) => {
 }
 
 export const testUploadImage = (req: Request, res: Response) => {
-    console.log(req.files)
+    console.log(req)
     res.send(req.body)
     // res.send({ message : 'Upload File Sukses'})
 }

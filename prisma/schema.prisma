@@ -23,16 +23,17 @@ model User {
 }
 
 model UserDetails {
-  id              Int             @default(autoincrement()) @id
-  user            User            @relation(fields: [userId], references: [id])
-  userId          Int
-  namaLengkap     String
-  tempatLahir     String
-  tanggalLahir    DateTime
-  profilePicture  String?
-  jenisKelamin    JenisKelamin
-  daftarAnak      Anak[]
-  historyGizi     HistoryGizi[]
+  id                Int             @default(autoincrement()) @id
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int
+  namaLengkap       String
+  tempatLahir       String
+  tanggalLahir      DateTime
+  profilePicture    String?
+  jenisKelamin      JenisKelamin
+  daftarAnak        Anak[]
+  historyGizi       HistoryGizi[]
+  historyKehamilan  HistoryKehamilan[]
 }
 
 model Anak {
@@ -143,5 +144,12 @@ model GiziMakanan {
   Cu                  Float
 }
 
-
+model HistoryKehamilan {
+  id                  Int         @default( autoincrement() ) @id
+  userDetailsId       Int 
+  userDetails         UserDetails        @relation(fields: [userDetailsId], references: [id])
+  tanggalHamil        DateTime
+  tanggalKelahiran    DateTime
+  lahir               Boolean
+}
 
