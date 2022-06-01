@@ -8,6 +8,21 @@
 4. If Access Denied occurs add `sudo` before command up and build
 5. If it has been successfully deployed, the container will run and be visible on the Docker Desktop or can be checked using `docker compose ps`
 
+## **How to Deploy**
+
+1. Install Docker and docker compose 
+2. Change nginx.conf in folder nginx comment where code `server localhost` uncomment who contain real domain whom has purchased
+3. Copy `env.example` in backend  to `.env` it `backend`
+4. Dont forget to change container name into `stunting-postgres` to gain accos to database 
+5. Make db user and pasword very secured 
+6. in root folder run commond `docker compose up --build` 
+7. Maybe we must setting same port to allow accesing from external. 
+8. Here some port used : 
+    - 80 : Landing Page 
+    - 3000 : Rest / Backend -> can hover into subdomain for safety 
+9. Check the connection using `curl db.localhost` or rest entry point in subdomain. it should return `{"message":"Welcome to Stunting Project Entry Point!"}%`
+
+
 ## **Usefull CLI Command for this project**
 
 - `yarn prisma studio` -> for showing database like phpmyadmin
