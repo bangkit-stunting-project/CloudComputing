@@ -46,9 +46,9 @@
   - [X] Update Profile Details
 - [ ] Anak API
   - [X] Create Anak
-  - [ ] Update Anak
+  - [X] Update Anak
   - [ ] Delete Anak 
-  - [ ] Read Daftar Anak 
+  - [X] Read Daftar Anak 
   - [ ] Read Anak Detail by Id
 - [ ] History Stunting 
   - [ ] Input Data with OpenCV JS 
@@ -66,6 +66,12 @@
   - [ ] Create Standard Gizi (Not include in app just for debugging purpose, in case needed in future)
   - [ ] Delete Standard Gizi (Not include in app just for debugging purpose, in case needed in future)
   - [ ] Update Standard Gizi (Not Include in app just for debugging purpose, in case needed in future)
+- [ ] History Kehamilan 
+  - [ ] Create Kehamilan
+  - [ ] Update Kehamilan 
+  - [ ] Delete Kehamilan 
+  - [ ] Read All History Kehamilan List 
+  - [ ] Read Kehamilan by Id 
 - [ ] Adding ERD for Nutrition each classes in ERD and Prisma
 
 ## **Postman Documentation** 
