@@ -62,9 +62,9 @@
 - [ ] Anak API
   - [X] Create Anak
   - [X] Update Anak
-  - [ ] Delete Anak 
+  - [X] Delete Anak 
   - [X] Read Daftar Anak 
-  - [ ] Read Anak Detail by Id
+  - [X] Read Anak Detail by Id
 - [ ] History Stunting 
   - [ ] Input Data with OpenCV JS 
   - [ ] Input Data Manual 

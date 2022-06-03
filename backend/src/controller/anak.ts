@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import e, { Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { getId } from './auth'
@@ -61,6 +61,26 @@ export const updateAnak = async (req : Request, res : Response ) => {
 
 // Delete Anak 
 
+export const deleteAnak = (req: Request , res: Response) => {
+    const anakId = parseInt(req.params.anakId)
+    
+    prisma.anak.delete({
+        where : {
+            id : anakId
+        }
+    })
+    .then(() => {
+        res.send('Data berhasil dihapus')
+    })
+    .catch(err => {
+        if (err instanceof Prisma.PrismaClientKnownRequestError) {
+            if (err.code == 'P2015') {
+                res.status(404).send({ message : 'Not Found!'})
+            }
+        }
+    })
+}
+
 // Read Daftar Anak All 
 export const getListAnak = (req : Request, res : Response) => {
     const token = req.headers['auth'] as string || req.headers.authorization as string
@@ -83,3 +103,21 @@ export const getListAnak = (req : Request, res : Response) => {
 }
 
 // Read Daftar Anak by Anak Id 
+export const getAnakById = (req: Request, res: Response) => {
+    const anakId = parseInt(req.params.anakId)
+    prisma.anak.findUnique({
+        where :{
+            id : anakId
+        }
+    })
+    .then(anak => {
+        res.send ({ anakDetails : anak})
+    })
+    .catch (err => {
+        if (err instanceof Prisma.PrismaClientKnownRequestError) {
+            if (err.code == 'P2015') {
+                res.status(404).send({ message : 'Not Found!'})
+            }
+        }
+    })
+}

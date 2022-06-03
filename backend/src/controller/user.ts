@@ -7,6 +7,7 @@ import * as fs from 'fs'
 import path from 'path'
 import { getUserDetailValidator } from '../middleware/validator/userValidator'
 import { runInNewContext } from 'vm'
+import { ROOT_URL } from '../constant'
 const prisma = new PrismaClient()
 
 // Profile Photo Storage 
@@ -64,6 +65,7 @@ export const userDetail = async (req: Request, res: Response) => {
     const data = req.body
     const token = req.headers['auth'] as string
     const userId = getId(token)
+    const url = ROOT_URL + '/user/profile'
     const option = {
         root : path.join(__dirname)
     }
@@ -81,28 +83,42 @@ export const userDetail = async (req: Request, res: Response) => {
         // if(user?.profilePicture) {
         //     res.sendFile(user.profilePicture, option)
         // }
-        res.send({ userDetail : user })
+        res.send({ 
+            namaLengkap : user?.namaLengkap,
+            tempatLahir : user?.tempatLahir,
+            tanggalLahir : user?.tanggalLahir as Date,
+            jenisKelamin : user?.jenisKelamin,
+            profilePicture : `${url}/${userId}`
+        })
     })
 }
 
-export const getProfilePicture = async (req: Request, res: Response, next: NextFunction) => {
+export const getProfilePicture = async (req: Request, res: Response) => {
     const token = req.headers['auth'] as string
-    const userId = getId(token)
+    const userId = req.params.userId 
+    console.log(userId)
     var option = {
-        root : path.join(__dirname)
+        root : './'
     }
     const userDetails = await prisma.userDetails.findUnique ({
-        where : {userId : userId}
+        where : {userId : parseInt(userId) }
     })
 
+
+
     if (userDetails?.profilePicture) {
+        console.log(userDetails.profilePicture)
         console.log('kirim pap dulu')
         res.sendFile(userDetails.profilePicture, option)
-        return next()
     }
     else {
+        console.log(userDetails)
+        if (userDetails === null ) {
+            res.send({ message : 'User Not Found'})
+            return
+        }
         console.log('ga ada pap nich')
-        return next()
+        res.send({ message : `Ga ada Pap. Pap dulu yach!`})
     } 
 
 }

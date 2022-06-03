@@ -145,11 +145,11 @@ model GiziMakanan {
 }
 
 model HistoryKehamilan {
-  id                  Int         @default( autoincrement() ) @id
+  id                  Int           @default( autoincrement() ) @id
   userDetailsId       Int 
   userDetails         UserDetails        @relation(fields: [userDetailsId], references: [id])
-  tanggalHamil        DateTime
-  tanggalKelahiran    DateTime
+  tanggalHamil        DateTime  
+  tanggalKelahiran    DateTime?       
   lahir               Boolean
 }
 

@@ -14,8 +14,11 @@ userRoute
 userRoute
     .route('/')
         .patch(checkToken, ...updateUserValidator, updateUserDetail)
-        .get(checkToken, getProfilePicture, userDetail)
+        .get(checkToken, userDetail)
 
+userRoute
+    .route('/profile/:userId')
+        .get(getProfilePicture)
 userRoute 
     .route('/upload')
         .patch(checkToken, profileUploader.single('image'), ...uploadPPValidator,   uploadPP)
