@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { login } from '../controller/auth'
+import { login } from '../controller/authController'
 import { loginValidator } from '../middleware/validator/loginValidator'
 
 const loginRoute = Router ()

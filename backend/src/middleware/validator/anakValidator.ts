@@ -1,5 +1,4 @@
 import {check} from 'express-validator'
-import { chownSync } from 'fs'
 import { validator } from './baseValidator'
 
 export const createAnakValidator = [
@@ -18,3 +17,19 @@ export const createAnakValidator = [
     ],
     validator
 ]
+
+export const updateAnakValidator = [
+    [
+        check('namaLengkap')
+        .isAlpha()
+        .withMessage('Nama lengkap hanya boleh terdiri dari huruf saja'),
+        check('tanggalLahir')
+        .isDate()
+        .withMessage('Format Tanggal Lahir tidak Valid.'),
+        check('tempatLahir')
+        .isAlpha()
+        .withMessage('Tempat Lahir hanya boleh terdiri dari huruf saja')
+    ],
+    validator
+]
+

@@ -1,7 +1,7 @@
-import e, { Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
-import { getId } from './auth'
+import { getId } from './authController'
 
 const prisma = new PrismaClient()
 
@@ -63,11 +63,13 @@ export const updateAnak = async (req : Request, res : Response ) => {
 
 export const deleteAnak = (req: Request , res: Response) => {
     const anakId = parseInt(req.params.anakId)
-    
+    const token = req.headers['auth'] as string
+    const userId = getId(token)
+
     prisma.anak.delete({
         where : {
             id : anakId
-        }
+        },
     })
     .then(() => {
         res.send('Data berhasil dihapus')

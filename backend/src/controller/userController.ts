@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
-import { decrypt, getId } from './auth'
+import { decrypt, getId } from './authController'
 import multer from 'multer'
 import * as fs from 'fs'
 

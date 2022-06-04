@@ -16,19 +16,21 @@ async function main () {
             }
         })
     }
-    console.log ('Admin sudah dibuat')
+    console.log ('Admin sudah dibuat jumlah :' + adminList.length)
 
     for (const data of standardGiziList) {
         await prisma.standarGizi.create({
             data : data
         })
     }
-
+    console.log('Standard Gizi Sudah Diseed sebanyak ' + standardGiziList.length)
+    
     for (const data of giziMakananList) {
         await prisma.giziMakanan.create({
             data : data
         })
     }
+    console.log('Gizi Makanan Sudah Diseed sebanyak ' + giziMakananList.length)
 }
 
 main ()

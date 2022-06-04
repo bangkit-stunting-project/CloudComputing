@@ -73,20 +73,20 @@
   - [ ] Read History Stunting by Date
 - [ ] History Gizi 
   - [ ] Input History Gizi with TFLite Model = input Picture 
-  - [ ] Read History Gizi All 
-  - [ ] Read History Gizi by Date 
-  - [ ] Delete Histery Gizi by Id 
+  - [X] Read History Gizi All 
+  - [X] Read History Gizi by Date 
+  - [X] Delete Histery Gizi by Id 
 - [ ] Standard Gizi 
   - [ ] Read Standard Gizi by Umur 
   - [ ] Create Standard Gizi (Not include in app just for debugging purpose, in case needed in future)
   - [ ] Delete Standard Gizi (Not include in app just for debugging purpose, in case needed in future)
   - [ ] Update Standard Gizi (Not Include in app just for debugging purpose, in case needed in future)
 - [ ] History Kehamilan 
-  - [ ] Create Kehamilan
-  - [ ] Update Kehamilan 
-  - [ ] Delete Kehamilan 
-  - [ ] Read All History Kehamilan List 
-  - [ ] Read Kehamilan by Id 
+  - [X] Create Kehamilan
+  - [X] Update Kehamilan 
+  - [X] Delete Kehamilan 
+  - [X] Read All History Kehamilan List 
+  - [X] Read Kehamilan by Id 
 - [ ] Adding ERD for Nutrition each classes in ERD and Prisma
 
 ## **Postman Documentation** 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
-import { getId } from "./auth";
-import { userDetail } from "./user";
+import { getId } from "./authController";
+import { userDetail } from "./userController";
 
 const prisma = new PrismaClient()
 
@@ -38,7 +38,7 @@ export const getHistoryGizibyDate = (req:Request, res:Response) => {
     prisma.historyGizi.findMany({
         where : {
             ibuId : userId,
-            timestamp : new Date(req.body.date)
+            timestamp : new Date(req.params.date)
         }
     })
     .then(history => {
@@ -75,6 +75,26 @@ export const deleteHistoryGiziById = (req: Request, res: Response) => {
         }
     })
 
+}
+
+// Read History Gizi By Id 
+export const getHistoryGiziById = (req:Request, res:Response) => {
+    const giziId = parseInt(req.params.giziId)
+    prisma.historyGizi.findUnique({
+        where : {
+            id : giziId
+        }
+    })
+    .then(data => {
+        res.send(data)
+    })
+    .catch (err => {
+        if (err instanceof Prisma.PrismaClientKnownRequestError) {
+            if (err.code == 'P2015') {
+                res.status(404).send({ message : 'Not Found!'})
+            }
+        }
+    })
 }
 
 // Input History Gizi using TF Model

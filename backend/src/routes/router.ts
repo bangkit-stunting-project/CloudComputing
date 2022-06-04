@@ -1,14 +1,18 @@
 import { Request, Response, Router } from "express";
-import { decodeToken, testUploadImage, uploader } from "../controller/testing";
-import anakRouter from "./anak";
-import loginRoute from "./login";
-import userRoute from "./user";
+import { decodeToken, testUploadImage, uploader } from "../controller/testingController";
+import anakRouter from "./anakRoute";
+import historyRoute from "./historyRoute";
+import loginRoute from "./loginRoute";
+import standardGiziRoute from "./standardGiziRouter";
+import userRoute from "./userRoute";
 
 const router = Router()
 
 router.use('/login', loginRoute)
 router.use('/user', userRoute)
 router.use('/anak', anakRouter)
+router.use('/history', historyRoute)
+router.use('/standard-gizi', standardGiziRoute)
 
 router
     .get('/testing', decodeToken)
