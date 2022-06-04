@@ -38,16 +38,16 @@ export const createAnak = (req : Request, res: Response) => {
 export const updateAnak = async (req : Request, res : Response ) => {
     const token = req.headers['auth'] as string 
     const userId = getId(token)
-    const anakId = req.params['id'] as any as number
-    const data = req.body as Prisma.AnakUpdateInput
+    const { anakId } = req.params 
+    const data = req.body
 
     await prisma.anak.update({
         where : { 
-            id : anakId,
+            id : parseInt(anakId),
         },
         data : {
             namaLengkap : data?.namaLengkap,
-            tanggalLahir : data?.tanggalLahir as Date,
+            tanggalLahir : new Date(data?.tanggalLahir),
             tempatLahir : data?.tempatLahir
         }
     })
@@ -55,6 +55,7 @@ export const updateAnak = async (req : Request, res : Response ) => {
         res.status(500).send({ message : `${anak.namaLengkap} telah berhasil di update`})
     })
     .catch ( err => {
+        console.log(err)
         res.send({ error : err})
     })
 }
@@ -72,12 +73,16 @@ export const deleteAnak = (req: Request , res: Response) => {
         },
     })
     .then(() => {
-        res.send('Data berhasil dihapus')
+        res.send({ message : `Data dengan id ${anakId} telah berhasil dihapus`})
     })
     .catch(err => {
+        console.log(err)
         if (err instanceof Prisma.PrismaClientKnownRequestError) {
             if (err.code == 'P2015') {
                 res.status(404).send({ message : 'Not Found!'})
+            }
+            else if (err.code == 'P2025') {
+                res.status(404).send({ message : `Data dengan id ${anakId} tidak Ditemukan`})
             }
         }
     })

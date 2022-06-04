@@ -20,11 +20,13 @@ export const getStandardGiziByBirthDate = (req:Request, res:Response) => {
         const tanggalNow = new Date
         const tahunNow = tanggalNow.getFullYear()
         const umur = tahunNow - tahunLahir
+        console.log(tahunLahir + '-' + tahunNow)
+        console.log(umur)
 
         prisma.standarGizi.findFirst({
             where : {
-                akhirRentang : { lte : umur},
-                awalRentang : { gte : umur},
+                akhirRentang : { gte : umur},
+                awalRentang : { lte : umur},
                 kelompok : kelompok,
 
             },
@@ -33,9 +35,11 @@ export const getStandardGiziByBirthDate = (req:Request, res:Response) => {
             }
         })
         .then (data => {
+            console.log(data)
             res.send(data)
         })
         .catch (err => {
+            console.log(err)
             if (err instanceof Prisma.PrismaClientKnownRequestError) {
                 if (err.code == 'P2015') {
                     res.status(404).send({ message : 'Not Found!'})

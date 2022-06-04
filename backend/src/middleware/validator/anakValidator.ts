@@ -21,14 +21,13 @@ export const createAnakValidator = [
 export const updateAnakValidator = [
     [
         check('namaLengkap')
-        .isAlpha()
-        .withMessage('Nama lengkap hanya boleh terdiri dari huruf saja'),
+        .optional(),
         check('tanggalLahir')
+        .optional()
         .isDate()
         .withMessage('Format Tanggal Lahir tidak Valid.'),
         check('tempatLahir')
-        .isAlpha()
-        .withMessage('Tempat Lahir hanya boleh terdiri dari huruf saja')
+        .optional()
     ],
     validator
 ]
