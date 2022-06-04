@@ -9,23 +9,21 @@ export const createKehamilan = async (req: Request, res: Response) => {
     const data = req.body as Prisma.HistoryKehamilanCreateInput 
     const token = req.headers['auth'] as string 
     const userId = getId(token)
-    const userDetail = await prisma.userDetails.findUnique({
+    prisma.userDetails.update({
         where : {
             userId : userId
-        }
-    })
-    prisma.historyKehamilan.create({
-        data :{
-            lahir : false,
-            tanggalHamil : data.tanggalHamil,
-            tanggalKelahiran : data.tanggalKelahiran,
-            userDetailsId : userDetail?.id,
-            userDetails : {
-                connect : {
-                    userId : userId
+        },
+        include : {
+            historyKehamilan: true
+        },
+        data : {
+            historyKehamilan : {
+                create : {
+                    lahir : false,
+                    tanggalHamil : data.tanggalHamil,
+                    tanggalKelahiran : data.tanggalKelahiran,
                 }
             }
-    
         }
     })
 }
