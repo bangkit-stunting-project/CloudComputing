@@ -21,7 +21,7 @@ export const login = async (req: Request, res: Response) => {
     })
     .then (user => {
         if (user == null) {
-            res.status(404).send({
+            res.status(401).send({
                 error : "Username / Password Salah!"
             })
             return
@@ -38,12 +38,12 @@ export const login = async (req: Request, res: Response) => {
                     })
                 }
                 else {
-                    res.send({ message : 'Username / Password Salah!'})
+                    res.status(401).send({ message : 'Username / Password Salah!'})
                 }
             })
             .catch (err => {
                 console.log(err)
-                res.status(500).send({
+                res.status(401).send({
                     message : "Username / Password Salah!"
                 })
                 return
