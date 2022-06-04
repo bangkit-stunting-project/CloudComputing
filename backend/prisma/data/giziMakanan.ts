@@ -151,6 +151,31 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitB3 : 0,
         VitC : 0
     },
+    {
+        namaMakanan : 'Karedok',
+        Air : 79.0,
+        Energi: 92,
+        Protein : 2.2,
+        Lemak : 3.3,
+        Karbohidrat : 14.1,
+        Serat : 1.4,
+        Ca : 174,
+        F : 85,
+        Fe2 : 2.4,
+        Na : 0,
+        Ka : 0,
+        Cu : 0,
+        Zn2 : 0,
+        // Retinol -> Vit A
+        VitA : 0,
+        // Thiamin -> B1
+        VitB1 : 0.08,
+        // Riboflamin -> B2
+        VitB2 : 3,
+        // Niasin -> B3
+        VitB3 : 0,
+        VitC : 0
+    },
 {
         namaMakanan : 'Ketoprak',
         Air : 69.1,
