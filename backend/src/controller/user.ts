@@ -5,8 +5,6 @@ import multer from 'multer'
 import * as fs from 'fs'
 
 import path from 'path'
-import { getUserDetailValidator } from '../middleware/validator/userValidator'
-import { runInNewContext } from 'vm'
 import { ROOT_URL } from '../constant'
 const prisma = new PrismaClient()
 
