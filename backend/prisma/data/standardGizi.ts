@@ -2,7 +2,7 @@ import {Prisma} from '@prisma/client'
 
 const standardGiziList : Prisma.StandarGiziCreateInput[] = [
     {
-        kelompok : 'Bayi / Anak',
+        kelompok : 'Bocil',
         awalRentang : 0,
         akhirRentang : 5,
         satuan : 'bulan',
@@ -36,7 +36,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
     {
-        kelompok : 'Bayi / Anak',
+        kelompok : 'Bocil',
         awalRentang : 6,
         akhirRentang : 11,
         satuan : 'bulan',
@@ -70,7 +70,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
     {
-        kelompok : 'Bayi / Anak',
+        kelompok : 'Bocil',
         awalRentang : 1,
         akhirRentang : 3,
         satuan : 'tahun',
@@ -104,7 +104,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
 {
-        kelompok : 'Bayi / Anak',
+        kelompok : 'Bocil',
         awalRentang : 4,
         akhirRentang : 6,
         satuan : 'tahun',
@@ -138,7 +138,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
 {
-        kelompok : 'Bayi / Anak',
+        kelompok : 'Bocil',
         awalRentang : 7,
         akhirRentang : 9,
         satuan : 'tahun',
@@ -714,7 +714,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
 {
-        kelompok : 'Hamil (+an)',
+        kelompok : 'Hamil',
         trimester : 1,
 	    awalRentang : 0,
         akhirRentang : 3,
@@ -749,7 +749,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
 {
-        kelompok : 'Hamil (+an)',
+        kelompok : 'Hamil',
         trimester : 2,
 	    awalRentang : 4,
         akhirRentang : 6,
@@ -784,7 +784,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
 {
-        kelompok : 'Hamil (+an)',
+        kelompok : 'Hamil',
         trimester : 3,
 	    awalRentang : 7,
         akhirRentang : 9,
@@ -819,7 +819,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
 {
-        kelompok : 'Menyusui (+an)',
+        kelompok : 'Menyusui',
 	awalRentang : 0,
         akhirRentang : 6,
         satuan : 'bulan',
@@ -853,7 +853,7 @@ const standardGiziList : Prisma.StandarGiziCreateInput[] = [
         }
     },
 {
-        kelompok : 'Menyusui (+an)',
+        kelompok : 'Menyusui',
 	awalRentang : 7,
         akhirRentang : 12,
         satuan : 'bulan',
