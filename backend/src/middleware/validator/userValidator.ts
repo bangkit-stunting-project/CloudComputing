@@ -12,9 +12,9 @@ export const registerValidator = [
             .withMessage('Email tidak boleh kosong'),
         check('password')
             .notEmpty()
-            .withMessage('Password tidak boleh kosong')
-            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i")
-            .withMessage('Password harus memiliki satu huruf kecil, satu huruf besar, angka, dan simbol.'),
+            .withMessage('Password tidak boleh kosong'),
+            // .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i")
+            // .withMessage('Password harus memiliki satu huruf kecil, satu huruf besar, angka, dan simbol.'),
         check('confirmPassword')
             .notEmpty()
             .withMessage('Konfirmasi Password tidak boleh kosong')
