@@ -52,7 +52,7 @@ export const register = async (req: Request, res : Response) => {
         }
     })
     .then(user => {
-        res.status(400).send({
+        res.send({
             message : `${user.email} telah berhasil dibuat. Silahkan Login untuk mendapatkan Token.`
         })
     })
