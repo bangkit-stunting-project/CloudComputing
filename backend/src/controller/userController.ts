@@ -156,12 +156,13 @@ export const uploadPP = async (req: Request, res: Response) => {
     const token = req.headers['auth'] as string
     const userId = getId(token)
 
+    console.log(req.file)
     // Cek Profile nya ada engga 
     const userDetail = await prisma.userDetails.findUnique({
         where : { userId : userId }
     })
 
-    console.log(userDetail?.profilePicture !== null)
+    // console.log(userDetail?.profilePicture !== null)
 
     if (userDetail?.profilePicture !== null) {
         console .log('ada data lama')
