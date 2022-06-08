@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:14.17.2-buster
 
 WORKDIR /app/backend
 
