@@ -16,10 +16,7 @@ EXPOSE 8080
 
 # RUN yarn run dev 
 
-RUN mkdir storage/{detect-gizi, detect-stunting, profile-picture, testing}
-
-
-
+RUN mkdir storage | cd storage | mkdir testing profile-picture detect-gizi detect-stunting
 
 # Command buat ngerun backend 
 # CMD [ "/bin/ash", "-c", "yarn run prisma migrate deploy && yarn run ts-node ./prisma/seed.ts && yarn run dev"]
