@@ -57,7 +57,7 @@ export const register = async (req: Request, res : Response) => {
         })
     })
     .catch(err => {
-        res.send(err)
+        // res.send(err)
         if (err instanceof Prisma.PrismaClientKnownRequestError) {
             if (err.code == 'P2015') {
                 res.status(404).send({ message : 'Not Found!'})
