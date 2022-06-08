@@ -6,7 +6,9 @@ COPY . .
 
 RUN yarn 
 
-EXPOSE 3000
+RUN apk update && apk add bash
+
+EXPOSE 8080
 
 # Command buat ngerun backend 
 # CMD [ "/bin/ash", "-c", "yarn run prisma migrate deploy && yarn run ts-node ./prisma/seed.ts && yarn run dev"]
