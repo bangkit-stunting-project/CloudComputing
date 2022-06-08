@@ -56,6 +56,9 @@ export const register = async (req: Request, res : Response) => {
             message : `${user.email} telah berhasil dibuat. Silahkan Login untuk mendapatkan Token.`
         })
     })
+    .catch(err => {
+        res.send(err)
+    })
 }
 
 // Read Detail Profile 
