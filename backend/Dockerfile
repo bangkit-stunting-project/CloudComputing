@@ -8,7 +8,7 @@ RUN yarn
 
 EXPOSE 8080
 
-RUN yarn prima generate 
+RUN yarn prisma generate 
 
 RUN yarn prisma migrate deploy 
 
