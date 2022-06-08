@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { decodeToken, testUploadImage, uploader } from "../controller/testingController";
+import { decodeToken, historyGiziUploader, testingDetectIsFood, testUploadImage, uploader } from "../controller/testingController";
 import anakRouter from "./anakRoute";
 import historyRoute from "./historyRoute";
 import loginRoute from "./loginRoute";
@@ -16,7 +16,7 @@ router.use('/standard-gizi', standardGiziRoute)
 
 router
     .get('/testing', decodeToken)
-    .post('/testing', uploader.single("files"), testUploadImage)
+    .post('/testing', historyGiziUploader.single('image'), testingDetectIsFood)
 
 router
     .get('/', (req: Request, res: Response) : void => {

@@ -29,7 +29,7 @@ const profileStorage = multer.diskStorage({
 export const profileUploader = multer({
     storage : profileStorage,
     limits : {
-        fileSize : 10000
+        fileSize : 1000000
     }
 })
 
@@ -161,10 +161,14 @@ export const uploadPP = async (req: Request, res: Response) => {
         where : { userId : userId }
     })
 
-    if (userDetail?.profilePicture) {
-        // console .log('ada data lama')
+    console.log(userDetail?.profilePicture !== null)
+
+    if (userDetail?.profilePicture !== null) {
+        console .log('ada data lama')
         fs.unlinkSync('./' + userDetail?.profilePicture)
     }
+
+    // res.send({message :    `masi testing`})
 
     await prisma.userDetails.update({
         where : { userId :userId},
