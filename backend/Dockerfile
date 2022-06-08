@@ -1,4 +1,4 @@
-FROM node:14.17.2-buster
+FROM node:lts-alpine3.16
 
 WORKDIR /app/backend
 
@@ -6,9 +6,7 @@ COPY . .
 
 RUN yarn 
 
-RUN apk update && apk add bash
-
-EXPOSE 8080
+EXPOSE 3000
 
 # Command buat ngerun backend 
 # CMD [ "/bin/ash", "-c", "yarn run prisma migrate deploy && yarn run ts-node ./prisma/seed.ts && yarn run dev"]
