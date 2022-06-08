@@ -11,7 +11,7 @@ const prisma = new PrismaClient()
 // Profile Photo Storage 
 const profileStorage = multer.diskStorage({
     destination : (req, file, cb) => {
-        cb(null, './storage/profile-picture')
+        cb(null, path.join(__dirname, './storage/profile-picture'))
     },
     filename : async (req, file, cb) => {
         const token = req.headers['auth'] as string
