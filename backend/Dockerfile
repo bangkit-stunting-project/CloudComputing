@@ -16,6 +16,8 @@ EXPOSE 8080
 
 # RUN yarn run dev 
 
+RUN mkdir storage/{detect-gizi, detect-stunting, profile-picture, testing}
+
 
 
 
