@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client"
 
 
-const StandardStuntingList : Prisma.StandardStuntingCreateInput[] = [
+export const StandardStuntingList : Prisma.StandardStuntingCreateInput[] = [
     {
         gender : 'M',
         umur : 0,
