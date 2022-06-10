@@ -3,6 +3,8 @@ import { genSaltSync, hashSync } from 'bcrypt'
 import adminList from './data/user'
 import standardGiziList from './data/standardGizi'
 import { giziMakananList } from './data/giziMakanan'
+import { StandardStuntingList } from './data/standardStunting'
+import { educationArticleList } from './data/educationArticle'
 
 const prisma = new PrismaClient()
 
@@ -30,7 +32,20 @@ async function main () {
             data : data
         })
     }
-    console.log('Gizi Makanan Sudah Diseed sebanyak ' + giziMakananList.length)
+    
+    console.log(`Standard Stunting List berhasil diinput sebanyak ${StandardStuntingList.length}`)
+    for (const data of StandardStuntingList ) {
+        await prisma.standardStunting.create({
+            data : data
+        })
+    }
+
+    console.log(`Artikel telah di input sebanyak ${educationArticleList.length} buah artikel penuh Hoax!`)
+    for (const data of educationArticleList) {
+        await prisma.educationArticle.create({
+            data : data
+        })
+    }
 }
 
 main ()

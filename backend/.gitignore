@@ -107,3 +107,6 @@ dist
 *.jpg 
 *.jpeg 
 *.png
+
+# Ignore h5 Model
+*.h5

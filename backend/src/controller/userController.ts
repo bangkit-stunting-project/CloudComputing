@@ -6,32 +6,8 @@ import * as fs from 'fs'
 
 import path from 'path'
 import { ROOT_URL } from '../constant'
+import { profileStorage } from '../middleware/function/storageList'
 const prisma = new PrismaClient()
-
-// Profile Photo Storage 
-const profileStorage = multer.diskStorage({
-    destination : (req, file, cb) => {
-        cb(null, './storage/profile-picture')
-    },
-    filename : async (req, file, cb) => {
-        const token = req.headers['auth'] as string
-        const userId = getId(token)
-        const userDetail = await prisma.userDetails.findFirst({
-            where : { userId : userId }
-        })
-        const splitting = file.originalname.split('.')
-        const length = splitting.length
-        console.log()
-        cb(null, userId + '_' + userDetail?.tempatLahir + '.' + splitting[length-1])
-    }
-})
-
-export const profileUploader = multer({
-    storage : profileStorage,
-    limits : {
-        fileSize : 10000
-    }
-})
 
 // Register 
 export const register = async (req: Request, res : Response) => {
@@ -56,6 +32,20 @@ export const register = async (req: Request, res : Response) => {
             message : `${user.email} telah berhasil dibuat. Silahkan Login untuk mendapatkan Token.`
         })
     })
+    .catch(err => {
+        // res.send(err)
+        if (err instanceof Prisma.PrismaClientKnownRequestError) {
+            if (err.code == 'P2015') {
+                res.status(404).send({ message : 'Not Found!'})
+            }
+            else if (err.code == 'P2025') {
+                res.status(404).send({ message : `Username/Password Salah`})
+            }
+            else if (err.code == 'P2002') {
+                res.status(401).send( { message : 'Email telah digunakan'})
+            }
+    }
+})
 }
 
 // Read Detail Profile 
@@ -156,15 +146,20 @@ export const uploadPP = async (req: Request, res: Response) => {
     const token = req.headers['auth'] as string
     const userId = getId(token)
 
+    console.log(req.file)
     // Cek Profile nya ada engga 
     const userDetail = await prisma.userDetails.findUnique({
         where : { userId : userId }
     })
 
-    if (userDetail?.profilePicture) {
-        // console .log('ada data lama')
+    // console.log(userDetail?.profilePicture !== null)
+
+    if (userDetail?.profilePicture !== null) {
+        console .log('ada data lama')
         fs.unlinkSync('./' + userDetail?.profilePicture)
     }
+
+    // res.send({message :    `masi testing`})
 
     await prisma.userDetails.update({
         where : { userId :userId},

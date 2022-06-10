@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { changePassword } from "../controller/authController";
-import { getProfilePicture, profileUploader, register, updateUserDetail, uploadPP, userDetail } from "../controller/userController";
+import { getProfilePicture, register, updateUserDetail, uploadPP, userDetail } from "../controller/userController";
+import { profileUploader } from "../middleware/function/uploaderList";
 import { checkToken } from "../middleware/security/checkToken";
 import { changePasswordValidator } from "../middleware/validator/loginValidator";
 import { getUserDetailValidator, registerValidator, updateUserValidator, uploadPPValidator } from "../middleware/validator/userValidator";

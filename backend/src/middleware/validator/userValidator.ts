@@ -31,9 +31,9 @@ export const registerValidator = [
             .withMessage('Jenis Kelamin tidak Valid'),
         check('namaLengkap')
             .notEmpty()
-            .withMessage('Nama Lengkap tidak boleh kosong')
-            .isAlpha()
-            .withMessage('Nama Lengkap hanya boleh terdiri dari huruf'),
+            .withMessage('Nama Lengkap tidak boleh kosong'),
+            // .isAlpha()
+            // .withMessage('Nama Lengkap hanya boleh terdiri dari huruf'),
         check('tempatLahir')
             .notEmpty()
             .withMessage('Tempat Lahir tidak boleh kosong'),

@@ -1,7 +1,15 @@
+import { PrismaClient } from '@prisma/client';
+import * as tf from '@tensorflow/tfjs-node'
 import { Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 import multer from 'multer';
 import path from 'path';
+import { getId } from './authController';
+import * as fs from 'fs';
+import { TFSavedModel } from '@tensorflow/tfjs-node/dist/saved_model';
+import { loadGraphModel } from '@tensorflow/tfjs-node';
+
+const prisma = new PrismaClient()
 
 export const uploadStorage = multer.diskStorage({
     destination : (req:Request, file, cb) => {
@@ -25,6 +33,94 @@ export const uploader = multer({
     }
 })
 
+const loadModel = (path : string) => {
+    const model = tf.loadLayersModel(path)
+    return model
+}
+
+export const testingDetectIsFood = async (req: Request, res:Response) => {
+    const path = req.file?.path as string
+    // console.log(path)
+    var option = {
+        root : './'
+    }
+
+    // const testingLoad = await loadGraphModel('file://src/model/food5kdaffa/model.json')
+
+    // const modelPath = fs.readFileSync( `./../model/food5kdaffa/model.json`)
+    const isFoodModel = await tf.loadLayersModel('file://src/model/food5kdaffa/model.json')
+    const FoodClass = await tf.loadLayersModel('file://src/model/inceptionV3-NoCNN-v3/model.json')
+    // const isFoodModel = loadModel('file://src/model/food5kdaffa/model.json');
+    // const loadedModel = await isFoodModel
+    const metadata = fs.readFileSync('./src/model/food5kdaffa/model.json')
+    const labels = JSON.parse(metadata.toString()).labels
+    
+    console.log(typeof(labels))
+    
+    const image = fs.readFileSync( `./${path}`)
+    
+
+    const decoded = tf.node.decodeImage(image)
+    // decoded.reshape([200,200,3])
+    // console.log('decoded ' + decoded.shape)
+    const resized = tf.image.resizeBilinear(decoded, [200,200])
+    // console.log('resized ' + resized.shape )
+    const expanded = tf.expandDims (resized, 0)
+    // console.log('expanded ' + expanded.shape)
+    // console.log(tf.node.decodeImage(image))
+    const result = (isFoodModel.predict(expanded) as tf.Tensor).argMax(1).dataSync()
+    const isFoodLabel = ['Food', 'non-Food']
+    console.log(isFoodLabel[result[0]])
+    // const data = await result.data();
+
+    // testingLoad.execute(expanded)
+    const label = ['Ayam Taliwang', 'Beef Burger', 'Beef Teriyaki', 'Chicken Teriyaki', 'Gado-Gado', 'Kalio Ayam', 'Karedok', 'Ketoprak', 'Martabak Mesir', 'Mie Aceh Rebus', 'Mie Ayam', 'Mie Bakso', 'Mie Pangsit Basah', 'Nasi Gurih', 'Nasi Rames', 'Pempek Telur', 'Rendang Sapi', 'Sop Daging Sapi', 'Soto Betawi', 'Soto Padang']
+    console.log(label.length)
+
+    const decodedClasses = tf.node.decodeImage(image)
+    const resizedClasses = tf.image.resizeBilinear(decodedClasses, [300,300])
+    const expandedClasses = tf.expandDims(resizedClasses, 0)
+    let classResult = await FoodClass.predict(expandedClasses) as tf.Tensor 
+    console.log('Food Class Result: ')
+    // Predict Classes
+    
+    const classResults = classResult.argMax(1) as tf.Tensor
+    const classidx = classResults.dataSync()[0]
+    const classLabel = label[classidx]
+    console.log(classLabel)
+    console.log((classResult.argMax(1) as tf.Tensor).dataSync()[0])
+    res.send({ label : classLabel, prediction : (classResult).dataSync()})
+    // console.log(classResult.dataSync().toString())
+    // console.log(FoodClass.getOutputAt(0))
+    // console.log('result :')
+    // console.log(result)
+    // var model: tf.LayersModel, images
+    // tf.loadLayersModel('file://src/model/food5kdaffa/model.json')
+    // .then(res => {
+    //     model = res
+    //     // console.log(model)
+    // })
+    // .then(modelInfo => {
+    //     // console.log(modelInfo)
+    //     images = fs.readFileSync('./' + path)
+    //     const uint8array = new Uint8Array(images)
+    //     return tf.node.decodeImage(uint8array)
+    // })
+    // .then(ImageTensor => {
+    //     let input = tf.image.resizeBilinear(ImageTensor, [200,200])
+    //     input = input.expandDims(0)
+    //     const startTime = tf.util.now()
+    //     let outputTensor = model.predict(input)
+    //     console.log(outputTensor)
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
+    // await res.sendFile(path, option)
+    
+    // await fs.unlinkSync(`./${path}`)
+}
+
 
 interface TOKENData {
     id : Number;
@@ -42,3 +138,4 @@ export const testUploadImage = (req: Request, res: Response) => {
     res.send(req.body)
     // res.send({ message : 'Upload File Sukses'})
 }
+

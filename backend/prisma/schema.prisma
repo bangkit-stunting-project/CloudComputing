@@ -153,3 +153,26 @@ model HistoryKehamilan {
   lahir               Boolean
 }
 
+model StandardStunting {
+  id             Int       @default(autoincrement()) @id
+  umur           Int
+  gender         JenisKelamin
+  SDMinus3       Float
+  SDMinus2       Float
+  SDMinus1       Float
+  Median         Float 
+  SDPlus1        Float
+  SDPlus2        Float
+  SDPlus3        Float
+}
+
+model EducationArticle {
+  id          Int     @default(autoincrement()) @id
+  author      String 
+  title       String
+  desc        String 
+  urlToImage  String 
+  content     String 
+  publishedAt DateTime
+}
+
