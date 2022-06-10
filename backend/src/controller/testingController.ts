@@ -33,29 +33,6 @@ export const uploader = multer({
     }
 })
 
-const historyGiziStorage = multer.diskStorage({
-    destination : (req, file, cb) => {
-        cb(null, './storage/detect-gizi')
-    },
-    filename : async (req, file, cb) => {
-        const token = req.headers['auth'] as string
-        const userId = getId(token)
-        const userDetail = await prisma.userDetails.findUnique({
-            where : { userId :userId}
-        })
-        const splitting = file.originalname.split('.')
-        const length = splitting.length
-        cb(null, userId + '_TestingGizi_' + Date.now() + '.' + splitting[length-1])
-    }
-})
-
-export const historyGiziUploader = multer({
-    storage : historyGiziStorage,
-    limits :{
-        fileSize : 1000000000
-    }
-})
-
 const loadModel = (path : string) => {
     const model = tf.loadLayersModel(path)
     return model
@@ -72,7 +49,7 @@ export const testingDetectIsFood = async (req: Request, res:Response) => {
 
     // const modelPath = fs.readFileSync( `./../model/food5kdaffa/model.json`)
     const isFoodModel = await tf.loadLayersModel('file://src/model/food5kdaffa/model.json')
-    const FoodClass = await tf.loadLayersModel('file://src/model/inceptionV3-NoCNN/model.json')
+    const FoodClass = await tf.loadLayersModel('file://src/model/inceptionV3-NoCNN-v3/model.json')
     // const isFoodModel = loadModel('file://src/model/food5kdaffa/model.json');
     // const loadedModel = await isFoodModel
     const metadata = fs.readFileSync('./src/model/food5kdaffa/model.json')
@@ -91,20 +68,29 @@ export const testingDetectIsFood = async (req: Request, res:Response) => {
     const expanded = tf.expandDims (resized, 0)
     // console.log('expanded ' + expanded.shape)
     // console.log(tf.node.decodeImage(image))
-    const result = (isFoodModel.predict(expanded) as tf.Tensor).arraySync()
-    console.log(result)
+    const result = (isFoodModel.predict(expanded) as tf.Tensor).argMax(1).dataSync()
+    const isFoodLabel = ['Food', 'non-Food']
+    console.log(isFoodLabel[result[0]])
     // const data = await result.data();
 
     // testingLoad.execute(expanded)
-
+    const label = ['Ayam Taliwang', 'Beef Burger', 'Beef Teriyaki', 'Chicken Teriyaki', 'Gado-Gado', 'Kalio Ayam', 'Karedok', 'Ketoprak', 'Martabak Mesir', 'Mie Aceh Rebus', 'Mie Ayam', 'Mie Bakso', 'Mie Pangsit Basah', 'Nasi Gurih', 'Nasi Rames', 'Pempek Telur', 'Rendang Sapi', 'Sop Daging Sapi', 'Soto Betawi', 'Soto Padang']
+    console.log(label.length)
 
     const decodedClasses = tf.node.decodeImage(image)
     const resizedClasses = tf.image.resizeBilinear(decodedClasses, [300,300])
     const expandedClasses = tf.expandDims(resizedClasses, 0)
     let classResult = await FoodClass.predict(expandedClasses) as tf.Tensor 
     console.log('Food Class Result: ')
-    console.log(classResult.dataSync())
-    console.log(classResult.dataSync().toString())
+    // Predict Classes
+    
+    const classResults = classResult.argMax(1) as tf.Tensor
+    const classidx = classResults.dataSync()[0]
+    const classLabel = label[classidx]
+    console.log(classLabel)
+    console.log((classResult.argMax(1) as tf.Tensor).dataSync()[0])
+    res.send({ label : classLabel, prediction : (classResult).dataSync()})
+    // console.log(classResult.dataSync().toString())
     // console.log(FoodClass.getOutputAt(0))
     // console.log('result :')
     // console.log(result)
@@ -130,7 +116,7 @@ export const testingDetectIsFood = async (req: Request, res:Response) => {
     // .catch(err => {
     //     console.log(err)
     // })
-    await res.sendFile(path, option)
+    // await res.sendFile(path, option)
     
     // await fs.unlinkSync(`./${path}`)
 }

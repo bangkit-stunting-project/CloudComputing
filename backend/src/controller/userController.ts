@@ -6,32 +6,8 @@ import * as fs from 'fs'
 
 import path from 'path'
 import { ROOT_URL } from '../constant'
+import { profileStorage } from '../middleware/function/storageList'
 const prisma = new PrismaClient()
-
-// Profile Photo Storage 
-const profileStorage = multer.diskStorage({
-    destination : (req, file, cb) => {
-        cb(null, path.join(__dirname, './../../storage/profile-picture'))
-    },
-    filename : async (req, file, cb) => {
-        const token = req.headers['auth'] as string
-        const userId = getId(token)
-        const userDetail = await prisma.userDetails.findFirst({
-            where : { userId : userId }
-        })
-        const splitting = file.originalname.split('.')
-        const length = splitting.length
-        console.log()
-        cb(null, userId + '_' + userDetail?.tempatLahir + '.' + splitting[length-1])
-    }
-})
-
-export const profileUploader = multer({
-    storage : profileStorage,
-    limits : {
-        fileSize : 1000000
-    }
-})
 
 // Register 
 export const register = async (req: Request, res : Response) => {

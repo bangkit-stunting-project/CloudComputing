@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
-import { decodeToken, historyGiziUploader, testingDetectIsFood, testUploadImage, uploader } from "../controller/testingController";
+import { decodeToken, testingDetectIsFood, testUploadImage, uploader } from "../controller/testingController";
+import { historyGiziUploader } from "../middleware/function/uploaderList";
 import anakRouter from "./anakRoute";
 import historyRoute from "./historyRoute";
 import loginRoute from "./loginRoute";
