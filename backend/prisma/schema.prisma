@@ -38,7 +38,8 @@ model UserDetails {
 
 model Anak {
   id                  Int               @default(autoincrement()) @id
-  namaLengkap         String      
+  namaLengkap         String 
+  jenisKelamin        JenisKelamin     
   tempatLahir         String
   tanggalLahir        DateTime
   parentId            Int
@@ -80,9 +81,9 @@ model HistoryStunting{
   id                  Int         @default(autoincrement()) @id
   anakId              Int
   anak                Anak        @relation(fields: [anakId], references: [id])
-  tinggiBadan         Int
+  tinggiBadan         Float
   timestamp           DateTime
-  result              Boolean
+  result              String
 }
 
 model StandarGizi{
