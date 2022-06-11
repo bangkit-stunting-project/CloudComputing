@@ -11,11 +11,14 @@ const prisma = new PrismaClient()
 
 async function main () {
     for (const data of adminList) {
-        const admin = await prisma.user.create({
-            data : data,
-            include: {
+        await prisma.user.create({
+                data : data,
+                include: {
                 userDetails: true
             }
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
     console.log ('Admin sudah dibuat jumlah :' + adminList.length)
@@ -24,12 +27,18 @@ async function main () {
         await prisma.standarGizi.create({
             data : data
         })
+        .catch(err => {
+            console.log(err)
+        })
     }
     console.log('Standard Gizi Sudah Diseed sebanyak ' + standardGiziList.length)
     
     for (const data of giziMakananList) {
         await prisma.giziMakanan.create({
             data : data
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
     
@@ -38,12 +47,18 @@ async function main () {
         await prisma.standardStunting.create({
             data : data
         })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     console.log(`Artikel telah di input sebanyak ${educationArticleList.length} buah artikel penuh Hoax!`)
     for (const data of educationArticleList) {
         await prisma.educationArticle.create({
             data : data
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
 }
