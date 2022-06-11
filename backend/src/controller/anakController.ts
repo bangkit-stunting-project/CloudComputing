@@ -19,6 +19,7 @@ export const createAnak = (req : Request, res: Response) => {
             daftarAnak : {
                 create : {
                     namaLengkap : data.namaLengkap,
+                    jenisKelamin : data.jenisKelamin,
                     tanggalLahir : new Date(data.tanggalLahir),
                     tempatLahir : data.tempatLahir
                 }

@@ -2,9 +2,10 @@ import { Router } from "express";
 import { checkSchema } from "express-validator";
 import { deleteHistoryGiziById, getHistoryGiziAll, getHistoryGizibyDate, getHistoryGiziById } from "../controller/historyGiziController";
 import { createKehamilan, deleteHistoryKehamilanById, getAllHistoryKehamilan, getHistoryKehamilanById, updateKehamilanById } from "../controller/historyKehamilanController";
-import { deleteHistoryStuningById, getAllHistoryStuntingByAnakId } from "../controller/historyStuntingController";
+import { createHistoryStunting, deleteHistoryStuningById, getAllHistoryStuntingByAnakId } from "../controller/historyStuntingController";
 import { checkToken } from "../middleware/security/checkToken";
 import { createKehamilanValidator, updateKehamilanByIdValidator } from "../middleware/validator/historyKehamilanValidator";
+import { createHistoryStuntingValidator } from "../middleware/validator/historyStuntingValidator";
 
 const historyRoute = Router()
 
@@ -38,6 +39,7 @@ historyRoute
 historyRoute
     .route('/stunting/:anakId')
         .get(checkToken, getAllHistoryStuntingByAnakId)
+        .post(checkToken, ...createHistoryStuntingValidator, createHistoryStunting)
         
 
 export default historyRoute

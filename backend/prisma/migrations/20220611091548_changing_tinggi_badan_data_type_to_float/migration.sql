@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "HistoryStunting" ALTER COLUMN "tinggiBadan" SET DATA TYPE DOUBLE PRECISION;
