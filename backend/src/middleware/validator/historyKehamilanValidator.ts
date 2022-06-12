@@ -1,11 +1,12 @@
+import { StatusKelahiran } from "@prisma/client";
 import { check } from "express-validator";
 import { validator } from "./baseValidator";
 
 export const createKehamilanValidator = [
     [
         check('lahir')
-            .isBoolean()
-            .withMessage('Status Kelahiran harus Boolean')
+            .isIn(Object.values(StatusKelahiran))
+            .withMessage('Status Kelahiran tidak valid mohon input LAHIR, MENINGGAL, BELUM, KEGUGURAN')
             .notEmpty()
             .withMessage('Status Kelahiran tidak boleh Kosong!'),
         check('tanggalHamil')
@@ -24,8 +25,8 @@ export const createKehamilanValidator = [
 export const updateKehamilanByIdValidator = [
     [
         check('lahir')
-            .isBoolean()
-            .withMessage('Status Kelahiran harus Boolean')
+            .isIn(Object.values(StatusKelahiran))
+            .withMessage('Status Kelahiran tidak valid mohon input LAHIR, MENINGGAL, BELUM, KEGUGURAN')
             .optional(),
         check('tanggalHamil')
             .isDate()

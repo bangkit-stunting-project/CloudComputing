@@ -59,13 +59,16 @@ export const getStandardGizi = (req:Request, res:Response) => {
 
 // Get Standard Gizi by Status 
 export const getStandardGiziByStatus = (req:Request, res:Response) => {
-    const token = req.headers['auth'] as string
-    const userId = getId(token)
+    // const token = req.headers['auth'] as string
+    // const userId = getId(token)
 
     prisma.standarGizi.findFirst ({
         where : {
             trimester : req.body.trimester,
             kelompok : req.params.kelompok
+        },
+        include : {
+            standarGiziDetail :true
         }
     })
     .then(data => {

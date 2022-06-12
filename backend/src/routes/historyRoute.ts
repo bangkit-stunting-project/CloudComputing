@@ -22,7 +22,7 @@ historyRoute
         .delete(checkToken, deleteHistoryGiziById)
 
 historyRoute
-    .route('/gizi/:date')
+    .route('/gizi/date/:date')
         .get(checkToken, getHistoryGizibyDate)
 
 historyRoute

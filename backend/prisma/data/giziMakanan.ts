@@ -522,7 +522,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
     {
-        namaMakanan : 'Cumi-Cumi goreng',
+        namaMakanan : 'Cumi Cumi Goreng',
         beratPerPorsi : 125,
         Air : 54.2,
         Energi: 265,
