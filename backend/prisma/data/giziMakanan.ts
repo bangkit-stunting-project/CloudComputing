@@ -476,4 +476,204 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitB3 : 0,
         VitC : 0
     },
+    {
+        namaMakanan : 'Bebek goreng',
+        Air : 48.8,
+        Energi: 300,
+        Protein : 24.0,
+        Lemak : 20.7,
+        Karbohidrat : 4.51,
+        Serat : 0.0,
+        Ca : 170,
+        F : 170,
+        Fe2 : 4.1,
+        Na : 34,
+        Ka : 6.0,
+        Cu : 0.40,
+        Zn2 : 3.0,
+        // Retinol -> Vit A
+        VitA : 0,
+        // Thiamin -> B1
+        VitB1 : 0.10,
+        // Riboflamin -> B2
+        VitB2 : 0.40,
+        // Niasin -> B3
+        VitB3 : 10.6,
+        VitC : 0
+    },
+    {
+        namaMakanan : 'Beef Burger',
+        Air : 45.5,
+        Energi: 258,
+        Protein : 10.6,
+        Lemak : 9.5,
+        Karbohidrat : 32.5,
+        Serat : 0.4,
+        Ca : 210,
+        F : 157,
+        Fe2 : 2.6,
+        Na : 572,
+        Ka : 189.1,
+        Cu : 0,
+        Zn2 : 0,
+        // Retinol -> Vit A
+        VitA : 218,
+        // Thiamin -> B1
+        VitB1 : 0.95,
+        // Riboflamin -> B2
+        VitB2 : 0,
+        // Niasin -> B3
+        VitB3 : 0,
+        VitC : 0
+    },
+    {
+        namaMakanan : 'Cumi-Cumi goreng',
+        Air : 54.2,
+        Energi: 265,
+        Protein : 40.6,
+        Lemak : 10.1,
+        Karbohidrat : 0,
+        Serat : 0,
+        Ca : 62,
+        F : 270,
+        Fe2 : 2.7,
+        Na : 86,
+        Ka : 81.9,
+        Cu : 0,
+        Zn2 : 0,
+        // Retinol -> Vit A
+        VitA : 0,
+        // Thiamin -> B1
+        VitB1 : 0.09,
+        // Riboflamin -> B2
+        VitB2 : 0,
+        // Niasin -> B3
+        VitB3 : 6.3,
+        VitC : 0
+    },
+    {
+        namaMakanan : 'Gulai kambing',
+        Air : 78.4,
+        Energi: 126,
+        Protein : 4.2,
+        Lemak : 9.4,
+        Karbohidrat : 6.2,
+        Serat : 0,
+        Ca : 45,
+        F : 73,
+        Fe2 : 1.3,
+        Na : 302,
+        Ka : 138.0,
+        Cu : 0.20,
+        Zn2 : 1.1,
+        // Retinol -> Vit A
+        VitA : 151,
+        // Thiamin -> B1
+        VitB1 : 0.13,
+        // Riboflamin -> B2
+        VitB2 : 0.01,
+        // Niasin -> B3
+        VitB3 : 0,
+        VitC : 0
+    },
+    {
+        namaMakanan : 'Sayur asem',
+        Air : 93.2,
+        Energi: 29,
+        Protein : 0.7,
+        Lemak : 0.6,
+        Karbohidrat : 5.0,
+        Serat : 0.6,
+        Ca : 40,
+        F : 61,
+        Fe2 : 3.1,
+        Na : 0,
+        Ka : 0,
+        Cu : 0,
+        Zn2 : 0,
+        // Retinol -> Vit A
+        VitA : 14,
+        // Thiamin -> B1
+        VitB1 : 0.10,
+        // Riboflamin -> B2
+        VitB2 : 0,
+        // Niasin -> B3
+        VitB3 : 0,
+        VitC : 0
+    },
+    {
+        namaMakanan : 'Semur jengkol',
+        Air : 52.7,
+        Energi: 212,
+        Protein : 6.0,
+        Lemak : 10.0,
+        Karbohidrat : 29.1,
+        Serat : 0,
+        Ca : 77,
+        F : 99,
+        Fe2 : 1.0,
+        Na : 0,
+        Ka : 0,
+        Cu : 0,
+        Zn2 : 0,
+        // Retinol -> Vit A
+        VitA : 0,
+        // Thiamin -> B1
+        VitB1 : 0.14,
+        // Riboflamin -> B2
+        VitB2 : 0,
+        // Niasin -> B3
+        VitB3 : 0,
+        VitC : 4
+    },
+    {
+        namaMakanan : 'Sop buntut',
+        Air : 86.1,
+        Energi: 71,
+        Protein : 7.5,
+        Lemak : 3.6,
+        Karbohidrat : 2.2,
+        Serat : 0,
+        Ca : 286,
+        F : 38,
+        Fe2 : 3.2,
+        Na : 490,
+        Ka : 0,
+        Cu : 0,
+        Zn2 : 0,
+        // Retinol -> Vit A
+        VitA : 119,
+        // Thiamin -> B1
+        VitB1 : 0.14,
+        // Riboflamin -> B2
+        VitB2 : 0,
+        // Niasin -> B3
+        VitB3 : 0,
+        VitC : 0
+    },
+    {
+        namaMakanan : 'Tekwan',
+        Air : 86.7,
+        Energi: 53,
+        Protein : 1.9,
+        Lemak : 0.9,
+        Karbohidrat : 9.4,
+        Serat : 0,
+        Ca : 9,
+        F : 41,
+        Fe2 : 1.0,
+        Na : 174,
+        Ka : 42.0,
+        Cu : 0,
+        Zn2 : 0,
+        // Retinol -> Vit A
+        VitA : 99,
+        // Thiamin -> B1
+        VitB1 : 0.10,
+        // Riboflamin -> B2
+        VitB2 : 0.02,
+        // Niasin -> B3
+        VitB3 : 0.4,
+        VitC : 0
+    },
 ] 
