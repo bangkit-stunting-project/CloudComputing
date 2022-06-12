@@ -2,9 +2,12 @@
 
 - Clone the repository
 - Open terminal, then go to this project's root directory
+- Type `python -m venv .venv` then press enter
+- In Linux, type `source .venv/bin/activate` then press enter
+- In Windows, type `.venv\Scripts\activate` then press enter
 - Type `pip install -r requirement.txt`, then press enter
-- Serve the Flask app by typing `flask run`
-- It will be run on `http://127.0.0.1:5000`
+- Serve the Flask app by typing `python app.py`
+- It will be run on `http://127.0.0.1:443`
 
 # API Endpoint
 

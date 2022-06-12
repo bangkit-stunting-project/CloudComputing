@@ -120,7 +120,7 @@ def predict():
         cv2.imwrite(os.path.join(app.config['OUTPUT_FOLDER'], filename), img)
         json = {
             # 'label': label.replace('_', ' '),
-            'image_url': 'http://127.0.0.1:5000/result/' + filename
+            'image_url': 'http://127.0.0.1:443/result/' + filename
         }
         return jsonify(json)
     else:
