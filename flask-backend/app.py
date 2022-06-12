@@ -98,8 +98,11 @@ def predict():
 
         contours = detector.detect_objects(img)
 
+        objects_width = []
+        objects_height = []
+
         # Draw objects boundaries
-        for cnt in contours:
+        for cnt, i in enumerate(contours):
             # Get rect
             rect = cv2.minAreaRect(cnt)
             (x, y), (w, h), angle = rect
@@ -107,6 +110,9 @@ def predict():
             # Get Width and Height of the Objects by applying the Ratio pixel to cm
             object_width = w / pixel_cm_ratio
             object_height = h / pixel_cm_ratio
+
+            objects_width.append()(object_width)
+            objects_height.append()(object_height)
 
             # Display rectangle
             box = cv2.boxPoints(rect)
@@ -116,6 +122,7 @@ def predict():
             cv2.polylines(img, [box], True, (255, 0, 0), 2)
             cv2.putText(img, "Width {} cm".format(round(object_width, 1)), (int(x - 100), int(y - 20)), cv2.FONT_HERSHEY_PLAIN, 2, (100, 200, 0), 2)
             cv2.putText(img, "Height {} cm".format(round(object_height, 1)), (int(x - 100), int(y + 15)), cv2.FONT_HERSHEY_PLAIN, 2, (100, 200, 0), 2)
+            cv2.putText(img, "{}".format(i), (int(x - 10), int(y - 20)), cv2.FONT_HERSHEY_PLAIN, 2, (100, 200, 0), 2)
             
         cv2.imwrite(os.path.join(app.config['OUTPUT_FOLDER'], filename), img)
         json = {
