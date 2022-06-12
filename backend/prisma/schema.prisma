@@ -125,6 +125,7 @@ model StandarGiziDetails{
 model GiziMakanan {
   id                  Int         @default(autoincrement()) @id
   namaMakanan         String 
+  beratPerPorsi       Float
   VitA                Float
   VitB1               Float
   VitB2               Float

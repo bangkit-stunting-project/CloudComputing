@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
 import { getId } from "./authController";
+import { resolveSoa } from "dns";
 
 const prisma = new PrismaClient()
 
 // Read Standard givi by Umur 
-export const getStandardGiziByBirthDate = (req:Request, res:Response) => {
+export const getStandardGizi = (req:Request, res:Response) => {
     const token = req.headers['auth'] as string
-    const kelompok = req.params.kelompok
     const userId = getId(token)
     prisma.userDetails.findUnique({
         where : {
@@ -22,6 +22,14 @@ export const getStandardGiziByBirthDate = (req:Request, res:Response) => {
         const umur = tahunNow - tahunLahir
         console.log(tahunLahir + '-' + tahunNow)
         console.log(umur)
+        const gender = userDetails?.jenisKelamin
+        let kelompok 
+        if (gender == 'M' ) {
+            kelompok = 'Laki-Laki'
+        }
+        else if (gender == 'F') {
+            kelompok = 'Perempuan'
+        }
 
         prisma.standarGizi.findFirst({
             where : {
@@ -47,6 +55,27 @@ export const getStandardGiziByBirthDate = (req:Request, res:Response) => {
             }
         })
     })
+}
+
+// Get Standard Gizi by Status 
+export const getStandardGiziByStatus = (req:Request, res:Response) => {
+    const token = req.headers['auth'] as string
+    const userId = getId(token)
+
+    prisma.standarGizi.findFirst ({
+        where : {
+            trimester : req.body.trimester,
+            kelompok : req.params.kelompok
+        }
+    })
+    .then(data => {
+        console.log(data)
+        res.send(data)
+    })
+    .catch ( err => {
+        console.log(err)
+    })
+
 }
 
 // Create Standard Gizi 

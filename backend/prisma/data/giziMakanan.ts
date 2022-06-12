@@ -3,6 +3,7 @@ import { Prisma } from "@prisma/client"
 export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
     {
         namaMakanan : 'Ayam Taliwang',
+        beratPerPorsi : 0,
         Air : 57.5,
         Energi: 264,
         Protein : 18.2,
@@ -27,7 +28,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
     {
-        namaMakanan : 'Beef burger',
+        namaMakanan : 'Beef Burger',
         Air : 45.5,
         Energi: 258,
         Protein : 10.6,
@@ -52,7 +53,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Beef teriyaki',
+        namaMakanan : 'Beef Teriyaki',
         Air : 65.1,
         Energi: 151,
         Protein : 8.6,
@@ -77,7 +78,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Chicken teriyaki',
+        namaMakanan : 'Chicken Teriyaki',
         Air : 68.2,
         Energi: 168,
         Protein : 13.0,
@@ -102,7 +103,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Gado-gado',
+        namaMakanan : 'Gado-Gado',
         Air : 68.5,
         Energi: 137,
         Protein : 6.1,
@@ -127,7 +128,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 1
     },
 {
-        namaMakanan : 'Kalio ayam',
+        namaMakanan : 'Kalio Ayam',
         Air : 64.7,
         Energi: 203,
         Protein : 16.0,
@@ -202,7 +203,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Martabak mesir',
+        namaMakanan : 'Martabak Mesir',
         Air : 40.2,
         Energi: 278,
         Protein : 5.1,
@@ -227,7 +228,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Mie aceh rebus',
+        namaMakanan : 'Mie Aceh Rebus',
         Air : 74.6,
         Energi: 113,
         Protein : 3.0,
@@ -252,7 +253,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Mie ayam',
+        namaMakanan : 'Mie Ayam',
         Air : 78.6,
         Energi: 102,
         Protein : 6.2,
@@ -277,7 +278,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Mie bakso',
+        namaMakanan : 'Mie Bakso',
         Air : 74.5,
         Energi: 114,
         Protein : 5.3,
@@ -302,7 +303,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Mie pangsit basah',
+        namaMakanan : 'Mie Pangsit Basah',
         Air : 79.2,
         Energi: 105,
         Protein : 5.9,
@@ -327,7 +328,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Nasi rames',
+        namaMakanan : 'Nasi Rames',
         Air : 65.8,
         Energi: 155,
         Protein : 10.3,
@@ -352,7 +353,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Pempek telur',
+        namaMakanan : 'Pempek Telur',
         Air : 62.4,
         Energi: 156,
         Protein : 4.7,
@@ -377,7 +378,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Rendang sapi',
+        namaMakanan : 'Rendang Sapi',
         Air : 57.9,
         Energi: 193,
         Protein : 22.6,
@@ -402,7 +403,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Sop daging sapi',
+        namaMakanan : 'Sop Daging Sapi',
         Air : 87.5,
         Energi: 49,
         Protein : 5.8,
@@ -427,7 +428,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Soto betawi',
+        namaMakanan : 'Soto Betawi',
         Air : 75.9,
         Energi: 135,
         Protein : 2.5,
@@ -452,7 +453,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
 {
-        namaMakanan : 'Soto padang',
+        namaMakanan : 'Soto Padang',
         Air : 75,
         Energi: 127,
         Protein : 5.9,
@@ -477,7 +478,7 @@ export const giziMakananList : Prisma.GiziMakananCreateInput[] = [
         VitC : 0
     },
     {
-        namaMakanan : 'Bebek goreng',
+        namaMakanan : 'Bebek Goreng',
         Air : 48.8,
         Energi: 300,
         Protein : 24.0,
