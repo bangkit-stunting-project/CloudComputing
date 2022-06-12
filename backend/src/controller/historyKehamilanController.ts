@@ -3,6 +3,7 @@ import { PrismaClient, Prisma } from "@prisma/client";
 import { getId } from "./authController";
 import { userDetail } from "./userController";
 import exp from "constants";
+import { stat } from "fs";
 
 const prisma = new PrismaClient()
 
@@ -21,9 +22,9 @@ export const createKehamilan = async (req: Request, res: Response) => {
         data : {
             historyKehamilan : {
                 create : {
-                    lahir : false,
-                    tanggalHamil : data.tanggalHamil,
-                    tanggalKelahiran : data.tanggalKelahiran,
+                    lahir : data.lahir,
+                    tanggalHamil : new Date(data.tanggalHamil),
+                    tanggalKelahiran : data?.tanggalKelahiran,
                 }
             }
         }
@@ -34,6 +35,7 @@ export const createKehamilan = async (req: Request, res: Response) => {
         })
     })
     .catch(err => {
+        console.log(err)
         if (err instanceof Prisma.PrismaClientKnownRequestError) {
             if (err.code == 'P2015') {
                 res.status(404).send({ message : 'Not Found!'})
@@ -46,12 +48,14 @@ export const createKehamilan = async (req: Request, res: Response) => {
 export const updateKehamilanById = (req : Request, res: Response) => {
     const kehamilanId = parseInt(req.params.kehamilanId)
     const data = req.body 
+    let statusLahir : boolean 
+
     prisma.historyKehamilan.update({
         where : {
             id : kehamilanId
         },
         data : {
-            lahir : data?.lahir,
+            lahir : req.body?.lahir ,
             tanggalHamil : new Date(data?.tanggalHamil),
             tanggalKelahiran : new Date(data?.tanggalKelahiran),
         }
@@ -60,6 +64,7 @@ export const updateKehamilanById = (req : Request, res: Response) => {
         res.send({ message : 'Data telah berhasil di update'})
     })
     .catch( err => {
+        console.log(err)
         if (err instanceof Prisma.PrismaClientKnownRequestError) {
             if (err.code == 'P2015') {
                 res.status(404).send({ message : 'Not Found!'})

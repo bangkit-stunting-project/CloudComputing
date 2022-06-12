@@ -21,7 +21,7 @@
 # Predict image using Postman
 
 - Open Postman
-- Enter URL request with `http://127.0.0.1:5000/predict`
+- Enter URL request with `http://127.0.0.1:443/predict`
 - Select method POST
 - Go to Body tab and select form-data
 - Change key from form-data with file (must be named `file`)

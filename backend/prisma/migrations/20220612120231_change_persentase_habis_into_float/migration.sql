@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "HistoryGizi" ALTER COLUMN "persentaseHabis" SET DATA TYPE DOUBLE PRECISION;

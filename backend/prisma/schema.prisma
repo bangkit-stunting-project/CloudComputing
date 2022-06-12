@@ -15,6 +15,13 @@ enum JenisKelamin {
   F
 }
 
+enum StatusKelahiran {
+  LAHIR
+  MENINGGAL
+  KEGUGURAN 
+  BELUM 
+}
+
 model User {
   id              Int             @default(autoincrement()) @id
   email           String          @unique
@@ -50,13 +57,13 @@ model Anak {
 
 model HistoryGizi {
   id                  Int               @default(autoincrement()) @id
-  anakId              Int
-  anak                Anak              @relation(fields: [anakId], references: [id])
-  ibuId               Int
-  ibu                 UserDetails       @relation(fields: [ibuId], references: [id])
+  anakId              Int?
+  anak                Anak?              @relation(fields: [anakId], references: [id])
+  ibuId               Int?
+  ibu                 UserDetails?       @relation(fields: [ibuId], references: [id])
   timestamp           DateTime
   namaMakanan         String
-  persentaseHabis     Int
+  persentaseHabis     Float
   VitA                Float
   VitB1               Float
   VitB2               Float
@@ -152,7 +159,7 @@ model HistoryKehamilan {
   userDetails         UserDetails        @relation(fields: [userDetailsId], references: [id])
   tanggalHamil        DateTime  
   tanggalKelahiran    DateTime?       
-  lahir               Boolean
+  lahir               StatusKelahiran
 }
 
 model StandardStunting {
