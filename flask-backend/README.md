@@ -7,7 +7,7 @@
 - In Windows, type `.venv\Scripts\activate` then press enter
 - Type `pip install -r requirement.txt`, then press enter
 - Serve the Flask app by typing `python app.py`
-- It will be run on `http://127.0.0.1:443`
+- It will be run on `http://127.0.0.1:6969`
 
 # API Endpoint
 
@@ -21,7 +21,7 @@
 # Predict image using Postman
 
 - Open Postman
-- Enter URL request with `http://127.0.0.1:443/predict`
+- Enter URL request with `http://127.0.0.1:6969/predict`
 - Select method POST
 - Go to Body tab and select form-data
 - Change key from form-data with file (must be named `file`)
