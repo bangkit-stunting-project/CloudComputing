@@ -1,57 +1,52 @@
 import os
 from flask import Flask, jsonify, request, send_from_directory
 from werkzeug.utils import secure_filename
-import numpy as np
-from PIL import Image
 import sys
-import tensorflow.compat.v1 as tf
-from tensorflow.keras.models import Sequential, load_model
-from keras.models import load_model
-import tensorflow_hub as hub
-from object_detection.utils import label_map_util
-from object_detection.utils import visualization_utils as viz_utils
-from datetime import datetime
-import csv
+import cv2
+import numpy as np
+
 sys.path.append("..")
 app = Flask(__name__)
 
 app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg'])
 app.config['UPLOAD_FOLDER'] = 'uploads/'
-app.config['OUTPUT_FOLDER'] = 'outputs/'
+app.config['OUTPUT_FOLDER'] = 'result/'
 
-LABEL_FILENAME = 'labels/label_map.pbtxt'
-category_index = label_map_util.create_category_index_from_labelmap(
-    LABEL_FILENAME, use_display_name=True)
+class HomogeneousBgDetector():
+    def __init__(self):
+        pass
 
-print('''
- _                    _ _               __  __           _      _             
-| |    ___   __ _  __| (_)_ __   __ _  |  \/  | ___   __| | ___| |            
-| |   / _ \ / _` |/ _` | | '_ \ / _` | | |\/| |/ _ \ / _` |/ _ \ |            
-| |__| (_) | (_| | (_| | | | | | (_| | | |  | | (_) | (_| |  __/ |  _   _   _ 
-|_____\___/ \__,_|\__,_|_|_| |_|\__, | |_|  |_|\___/ \__,_|\___|_| (_) (_) (_)
-                                |___/                                         
-''')
-# model = 'model/'
-# hub_model = hub.load(model)
-model = 'food5k.h5'
-hub_model = tf.keras.models.load_model(model)
+    def detect_objects(self, frame):
+        # Convert Image to grayscale
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-print('''
- __  __           _      _   _                    _          _   _ 
-|  \/  | ___   __| | ___| | | |    ___   __ _  __| | ___  __| | | |
-| |\/| |/ _ \ / _` |/ _ \ | | |   / _ \ / _` |/ _` |/ _ \/ _` | | |
-| |  | | (_) | (_| |  __/ | | |__| (_) | (_| | (_| |  __/ (_| | |_|
-|_|  |_|\___/ \__,_|\___|_| |_____\___/ \__,_|\__,_|\___|\__,_| (_)
-''')
+        # Create a Mask with adaptive threshold
+        mask = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 19, 5)
 
+        # Find contours
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        #cv2.imshow("mask", mask)
+        objects_contours = []
+
+        for cnt in contours:
+            area = cv2.contourArea(cnt)
+            if area > 3000:
+                #cnt = cv2.approxPolyDP(cnt, 0.03*cv2.arcLength(cnt, True), True)
+                objects_contours.append(cnt)
+
+        return objects_contours
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
-
-def load_image_into_numpy_array(image):
-    (image_width, image_height) = image.size
-    return np.array(image.getdata()).reshape((1, image_height, image_width, 3)).astype(np.uint8)
+def load_images_from_folder(folder):
+    images = []
+    for filename in os.listdir(folder):
+        img = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        if img is not None:
+            images.append(img)
+    return images
 
 # Endpoint 
 @app.route('/')
@@ -76,43 +71,58 @@ def predict():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        image_path = Image.open(file)
-        image_path = image_path.convert('RGB')
-        image_np = load_image_into_numpy_array(image_path)
-        results = hub_model(image_np)
-        result = {key: value.numpy() for key, value in results.items()}
-        label_id_offset = 0
-        image_np_with_detections = load_image_into_numpy_array(image_path)
-        viz_utils.visualize_boxes_and_labels_on_image_array(
-            image_np_with_detections[0],
-            result['detection_boxes'][0],
-            (result['detection_classes'][0] + label_id_offset).astype(int),
-            result['detection_scores'][0],
-            category_index,
-            use_normalized_coordinates=True,
-            max_boxes_to_draw=1,
-            line_thickness=5,
-            min_score_thresh=.3,
-            agnostic_mode=False)
-        try:
-            label = viz_utils.visualize_boxes_and_labels_on_image_array.class_name
-            print(label)
-        except:
-            error = [datetime.now(), filename]
-            with open('error_log.csv', 'a+') as csvfile:
-                csvwriter = csv.writer(csvfile)
-                csvwriter.writerow(error)
-            csvfile.close()
-            label = 'Not Detected'
-        finally:
-            predicted_image = Image.fromarray(
-                image_np_with_detections.squeeze())
-            predicted_image.save('outputs/' + filename)
-            json = {
-                'label': label.replace('_', ' '),
-                'image_url': '/outputs/' + filename
-            }
-            return jsonify(json)
+
+        # Load Aruco detector
+        parameters = cv2.aruco.DetectorParameters_create()
+        aruco_dict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_50)
+        
+        # Load Object Detector
+        detector = HomogeneousBgDetector()
+
+        # Load Image
+        # img = cv2.imread("./real-testing2.jpeg")
+        img = cv2.imread('uploads/' + filename)
+
+        # Get Aruco marker
+        corners, _, _ = cv2.aruco.detectMarkers(img, aruco_dict, parameters=parameters)
+
+        # Draw polygon around the marker
+        int_corners = np.int0(corners)
+        cv2.polylines(img, int_corners, True, (0, 255, 0), 5)
+
+        # Aruco Perimeter
+        aruco_perimeter = cv2.arcLength(corners[0], True)
+
+        # Pixel to cm ratio
+        pixel_cm_ratio = aruco_perimeter / 20
+
+        contours = detector.detect_objects(img)
+
+        # Draw objects boundaries
+        for cnt in contours:
+            # Get rect
+            rect = cv2.minAreaRect(cnt)
+            (x, y), (w, h), angle = rect
+
+            # Get Width and Height of the Objects by applying the Ratio pixel to cm
+            object_width = w / pixel_cm_ratio
+            object_height = h / pixel_cm_ratio
+
+            # Display rectangle
+            box = cv2.boxPoints(rect)
+            box = np.int0(box)
+
+            cv2.circle(img, (int(x), int(y)), 5, (0, 0, 255), -1)
+            cv2.polylines(img, [box], True, (255, 0, 0), 2)
+            cv2.putText(img, "Width {} cm".format(round(object_width, 1)), (int(x - 100), int(y - 20)), cv2.FONT_HERSHEY_PLAIN, 2, (100, 200, 0), 2)
+            cv2.putText(img, "Height {} cm".format(round(object_height, 1)), (int(x - 100), int(y + 15)), cv2.FONT_HERSHEY_PLAIN, 2, (100, 200, 0), 2)
+            
+        cv2.imwrite(os.path.join(app.config['OUTPUT_FOLDER'], filename), img)
+        json = {
+            # 'label': label.replace('_', ' '),
+            'image_url': 'http://127.0.0.1:5000/result/' + filename
+        }
+        return jsonify(json)
     else:
         json = {
             'data': [],
@@ -122,7 +132,7 @@ def predict():
         return jsonify(json)
 
 
-@app.route('/outputs/<name>')
+@app.route('/result/<name>')
 def output_file(name):
     return send_from_directory(app.config['OUTPUT_FOLDER'], name)
 
