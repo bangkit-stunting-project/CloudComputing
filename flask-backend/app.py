@@ -5,6 +5,9 @@ import sys
 import cv2
 import numpy as np
 
+ROOT_PATH = 'http://mlpanyastunting.com/'
+# ROOT_PATH = 'localhost:6969/'
+
 sys.path.append("..")
 app = Flask(__name__)
 
@@ -127,7 +130,7 @@ def predict():
         cv2.imwrite(os.path.join(app.config['OUTPUT_FOLDER'], filename), img)
         json = {
             # 'label': label.replace('_', ' '),
-            'image_url': 'http://127.0.0.1:5000/result/' + filename
+            'image_url': ROOT_PATH + '/result/' + filename
         }
         return jsonify(json)
     else:
@@ -152,4 +155,4 @@ def create_app():
    return app
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=443)
+    app.run(debug=False, host='0.0.0.0', port=6969)
