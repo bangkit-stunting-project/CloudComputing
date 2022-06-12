@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
 import { getId } from "./authController";
+import * as tf from '@tensorflow/tfjs-node'
+import * as fs from 'fs'
 import { userDetail } from "./userController";
 
 const prisma = new PrismaClient()
@@ -98,3 +100,33 @@ export const getHistoryGiziById = (req:Request, res:Response) => {
 }
 
 // Input History Gizi using TF Model
+export const createHistoryGizi = async (req:Request, res:Response) => {
+    const path = req.file?.path
+    var option = {
+        root : './'
+    }
+
+    const model = await tf.loadLayersModel('file://src/model/Vall_Loss_Best_Model_11_Class/model.json')
+    const label = ['Bebek Goreng', 'Beef Burger', 'Cumi Cumi Goreng', 'Gulai Kambing', 'Mie Ayam', 'Rendang Sapi', 'Sayur Asem', 'Semur Jengkol', 'Sop Buntut', 'Soto Padang', 'Tekwan']
+
+    // Pre processing 
+    const image = fs.readFileSync(`./${path}`)
+    const decoded = tf.node.decodeImage(image)
+    const resized = tf.image.resizeBilinear(decoded, [300, 300]).div(tf.scalar(255))
+    const expanded = tf.expandDims(resized, 0)
+
+    // Prediction 
+    const result = model.predict(expanded) as tf.Tensor
+    const labelIdx = tf.argMax(result.dataSync())
+    const classLabel = label[labelIdx.dataSync()[0]]
+
+    prisma.giziMakanan.findFirst({
+        where : {
+            namaMakanan : classLabel
+        }
+    }).then(giziMakanan => {
+        res.send({ class : classLabel, detail : giziMakanan})
+    }).catch(err => {
+        console.log(err)
+    })
+}

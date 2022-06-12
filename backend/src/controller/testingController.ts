@@ -8,6 +8,7 @@ import { getId } from './authController';
 import * as fs from 'fs';
 import { TFSavedModel } from '@tensorflow/tfjs-node/dist/saved_model';
 import { loadGraphModel } from '@tensorflow/tfjs-node';
+import { ArrayMap } from '@tensorflow/tfjs-core/dist/types';
 
 const prisma = new PrismaClient()
 
@@ -49,7 +50,7 @@ export const testingDetectIsFood = async (req: Request, res:Response) => {
 
     // const modelPath = fs.readFileSync( `./../model/food5kdaffa/model.json`)
     const isFoodModel = await tf.loadLayersModel('file://src/model/food5kdaffa/model.json')
-    const FoodClass = await tf.loadLayersModel('file://src/model/inceptionV3-NoCNN-v3/model.json')
+    const FoodClass = await tf.loadLayersModel('file://src/model/Vall_Loss_Best_Model_11_Class/model.json')
     // const isFoodModel = loadModel('file://src/model/food5kdaffa/model.json');
     // const loadedModel = await isFoodModel
     const metadata = fs.readFileSync('./src/model/food5kdaffa/model.json')
@@ -74,22 +75,27 @@ export const testingDetectIsFood = async (req: Request, res:Response) => {
     // const data = await result.data();
 
     // testingLoad.execute(expanded)
-    const label = ['Ayam Taliwang', 'Beef Burger', 'Beef Teriyaki', 'Chicken Teriyaki', 'Gado-Gado', 'Kalio Ayam', 'Karedok', 'Ketoprak', 'Martabak Mesir', 'Mie Aceh Rebus', 'Mie Ayam', 'Mie Bakso', 'Mie Pangsit Basah', 'Nasi Gurih', 'Nasi Rames', 'Pempek Telur', 'Rendang Sapi', 'Sop Daging Sapi', 'Soto Betawi', 'Soto Padang']
+    const label = ['Bebek Goreng', 'Beef Burger', 'Cumi Cumi Goreng', 'Gulai Kambing', 'Mie Ayam', 'Rendang Sapi', 'Sayur Asem', 'Semur Jengkol', 'Sop Buntut', 'Soto Padang', 'Tekwan']
     console.log(label.length)
 
     const decodedClasses = tf.node.decodeImage(image)
-    const resizedClasses = tf.image.resizeBilinear(decodedClasses, [300,300])
+    console.log(decodedClasses)
+    const resizedClasses = tf.image.resizeBilinear(decodedClasses, [300,300]).div(tf.scalar(255))
+    console.log(resizedClasses)
     const expandedClasses = tf.expandDims(resizedClasses, 0)
-    let classResult = await FoodClass.predict(expandedClasses) as tf.Tensor 
+    console.log(expandedClasses.dataSync())
+    let classResult = FoodClass.predict(expandedClasses) as tf.Tensor 
     console.log('Food Class Result: ')
     // Predict Classes
     
-    const classResults = classResult.argMax(1) as tf.Tensor
-    const classidx = classResults.dataSync()[0]
-    const classLabel = label[classidx]
-    console.log(classLabel)
-    console.log((classResult.argMax(1) as tf.Tensor).dataSync()[0])
-    res.send({ label : classLabel, prediction : (classResult).dataSync()})
+    const category = tf.argMax(classResult.dataSync())
+    console.log(category.dataSync()[0])
+    // const classidx = tf.argMax(classResults.dataSync()).dataSync()
+    // console.log(classidx)
+    // const classLabel = label[classidx]
+    // console.log(classLabel)
+    // console.log((classResult.argMax() as tf.Tensor).dataSync())
+    res.send({ label : label[category.dataSync()[0]], prediction : (classResult).dataSync()})
     // console.log(classResult.dataSync().toString())
     // console.log(FoodClass.getOutputAt(0))
     // console.log('result :')

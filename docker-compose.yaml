@@ -26,6 +26,18 @@ services:
       postgres:
         condition: service_started
 
+  flask :
+    container_name: anya-flask
+    build: 
+      context : ./flask-backend
+      dockerfile: ./Dockerfile
+    ports: 
+      - 5000:5000
+    restart: always
+    depends_on:
+      rest: 
+        condition : service_started
+
   nginx : 
     image: nginx:mainline-alpine 
     container_name: anya-nginx
